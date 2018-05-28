@@ -1,0 +1,52 @@
+[{
+	"id":1,
+	"text":"业务模块",
+	"children" :[{
+		"id" : 11,
+		"text" : "客户管理"
+	},{
+		"id" : 12,
+		"text" : "客户跟进管理"
+	},{
+		"id" : 13,
+		"text" : "客户移交管理"
+	},{
+		"id" : 14,
+		"text" : "客户资源池管理"
+	}]
+},{
+	"id":2,
+	"text":"系统模块",
+	"children" :[{
+		"id" : 21,
+		"text" : "员工管理",
+		"iconCls" : "icon-ok",
+		"attributes" : {
+			"url" : "employee.action"
+		}
+	},{
+		"id" : 22,
+		"text" : "部门管理",
+		"attributes" : {
+			"url" : "department.action"
+		}
+	},{
+		"id" : 23,
+		"text" : "系统资源管理"
+	},{
+		"id" : 24,
+		"text" : "权限管理"
+	},{
+		"id" : 25,
+		"text" : "角色管理"
+	},{
+		"id" : 26,
+		"text" : "数据字典管理",
+		"attributes" : {
+			"url" : "systemDictionary.action"
+		}
+	},{
+		"id" : 27,
+		"text" : "系统日志管理"
+	}]
+}]

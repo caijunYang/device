@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itplayer.core.system.dao.ManagerDao">
+    <resultMap id="managerResultMap" type="com.itplayer.core.system.entity.Manager">
+        <result column="id" property="id"/>
+        <result column="createDate" property="createDate"/>
+        <result column="updateDate" property="updateDate"/>
+        <result column="realName" property="realName"/>
+        <result column="username" property="username"/>
+        <result column="email" property="email"/>
+        <result column="mobile" property="mobile"/>
+        <result column="addr" property="addr"/>
+        <result column="sex" property="sex"/>
+        <result column="lastLogin" property="lastLogin"/>
+        <association property="area" column="area_id"
+                     javaType="com.itplayer.core.system.entity.Area">
+            <result property="id" column="aId"></result>
+            <result property="areaCode" column="aCode"></result>
+            <result property="areaName" column="aName"></result>
+        </association>
+    </resultMap>
+    <insert id="create" parameterType="com.itplayer.core.system.entity.Manager" useGeneratedKeys="true" keyProperty="id">
+            INSERT INTO sys_manager(createDate,updateDate,username,password,realName,mobile,email,addr,sex,area_id,lastLogin,enabled,salt)
+        VALUES (now(),now(),#{username},#{password},#{realName},#{mobile},#{email},#{addr},#{sex},#{area.id},#{lastLogin},#{enabled},#{salt})
+    </insert>
+    <update id="update" parameterType="com.itplayer.core.system.entity.Manager">
+        UPDATE sys_manager
+        <set>
+            <if test="password !=null and password !=''">
+                password=#{password},
+            </if>
+            <if test="realName !=null and realName !=''">
+                realName=#{realName},
+            </if>
+            <if test="mobile !=null and mobile !=''">
+                mobile=#{mobile},
+            </if>
+            <if test="email !=null and email !=''">
+                email=#{email},
+            </if>
+            <if test="addr !=null and addr !=''">
+                addr=#{addr},
+            </if>
+            <if test="sex !=null ">
+                sex=#{sex},
+            </if>
+            <if test="area !=null ">
+                area_id=#{area.id},
+            </if>
+            <if test="lastLogin !=null ">
+                lastLogin=#{lastLogin},
+            </if>
+            <if test="enabled !=null ">
+                enabled=#{enabled},
+            </if>
+            <if test="salt !=null and salt !=''">
+                salt=#{salt},
+            </if>
+            updateDate =now()
+        </set>
+        WHERE id=#{id}
+    </update>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+      DELETE FROM sys_manager WHERE id=#{id}
+    </delete>
+    <select id="getByPrimaryKey" parameterType="java.lang.Long" resultType="com.itplayer.core.system.entity.Manager">
+      SELECT * FROM sys_manager WHERE id=#{id}
+    </select>
+
+    <select id="findAll" resultType="com.itplayer.core.system.entity.Manager">
+      SELECT * FROM sys_manager
+    </select>
+
+    <select id="count" parameterType="com.itplayer.core.system.query.ManagerQueryModel" resultType="java.lang.Long">
+        SELECT count(id) FROM sys_manager
+        <where>
+            <if test="realName !=null and realName!=''">
+                AND realName LIKE concat('%',#{realName},'%')
+            </if>
+            <if test="area_id !=null">
+                AND area_id=#{area_id}
+            </if>
+        </where>
+
+    </select>
+    <select id="query" parameterType="com.itplayer.core.system.query.ManagerQueryModel"
+            resultMap="managerResultMap">
+        SELECT m.*,a.id as aid ,a.areaCode as aCode,a.areaName as aName FROM sys_manager m LEFT JOIN sys_area  a
+        ON (m.area_id=a.id)
+        <where>
+            <if test="realName !=null and realName!=''">
+                AND m.realName LIKE concat('%',#{realName},'%')
+            </if>
+            <if test="area_id != null">
+                AND m.area_id=#{area_id}
+            </if>
+        </where>
+        <if test="start != null and pageSize != null">
+            limit #{start,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+
+    <delete id="batchDelete">
+        DELETE FROM sys_manager WHERE serialNo in
+        <foreach item="ids" index="index" collection="array"
+                 open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
+    <select id="findByUsername" parameterType="java.lang.String" resultType="com.itplayer.core.system.entity.Manager">
+        SELECT * FROM sys_manager WHERE username=#{username}
+    </select>
+
+
+    <insert id="addRole" parameterType="com.itplayer.core.system.entity.Manager">
+        INSERT INTO sys_manager_role(manager_id,role_id) VALUES
+        <foreach collection="roles" item="r" separator=",">
+            (#{id},#{r.id})
+        </foreach>
+    </insert>
+    <delete id="removeRole" parameterType="com.itplayer.core.system.entity.Manager">
+        DELETE  FROM sys_manager_role WHERE manager_id=#{id}
+    </delete>
+</mapper>

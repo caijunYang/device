@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itplayer.core.device.dao.OrdinaryInfoDao">
+    <insert id="create" parameterType="com.itplayer.core.device.entity.OrdinaryInfo" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO dev_ordinaryInfo(createDate,updateDate,device_id,port,fiberFrameAddr,fiberFramePort,targetDevice,targetDeviceModel,targetFiberFrame,physicalPort,serviceName)
+        VALUES (now(),now(),#{device.id},#{port},#{fiberFrameAddr},#{fiberFramePort},#{targetDevice},#{targetDeviceModel},#{targetFiberFrame},#{physicalPort},#{serviceName})
+
+    </insert>
+    <update id="update" parameterType="com.itplayer.core.device.entity.OrdinaryInfo">
+        UPDATE dev_ordinaryInfo
+        <set>
+            <if test="port != null and port!=''">
+                port=#{port},
+            </if>
+            <if test="device !=null ">
+                device_id=#{device.id},
+            </if>
+            <if test="fiberFrameAddr !=null and fiberFrameAddr !=''">
+                fiberFrameAddr=#{fiberFrameAddr},
+            </if>
+            <if test="fiberFramePort!=null and fiberFramePort!=''">
+                fiberFramePort=#{fiberFramePort},
+            </if>
+
+            <if test="targetDevice!=null and targetDevice!=''">
+                targetDevice=#{targetDevice},
+            </if>
+            <if test="targetDeviceModel!=null and targetDeviceModel!=''">
+                targetDeviceModel=#{targetDeviceModel},
+            </if>
+            <if test="targetFiberFrame!=null and targetFiberFrame!=''">
+                targetFiberFrame=#{targetFiberFrame},
+            </if>
+            <if test="physicalPort!=null and physicalPort!=''">
+                physicalPort=#{physicalPort},
+            </if>
+            <if test="serviceName!=null and serviceName!=''">
+                serviceName=#{serviceName},
+            </if>
+            updateDate =now()
+        </set>
+        WHERE id=#{id}
+    </update>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+      DELETE FROM dev_ordinaryInfo WHERE id=#{id}
+    </delete>
+    <select id="getByPrimaryKey" parameterType="java.lang.Long"
+            resultType="com.itplayer.core.device.entity.OrdinaryInfo">
+      SELECT * FROM dev_ordinaryInfo WHERE id=#{id}
+    </select>
+    <select id="findAll" resultType="com.itplayer.core.device.entity.OrdinaryInfo">
+      SELECT * FROM dev_ordinaryInfo
+    </select>
+    <delete id="batchDelete">
+        DELETE FROM dev_ordinaryInfo WHERE serialNo in
+        <foreach item="ids" index="index" collection="array"
+                 open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
+
+    <select id="count" parameterType="com.itplayer.core.device.query.OrdinaryInfoQueryModel"
+            resultType="java.lang.Long">
+        SELECT count(id) FROM dev_ordinaryInfo
+        <where>
+            <if test="device_id !=null ">
+                AND device_id =#{device_id}
+            </if>
+        </where>
+
+    </select>
+    <select id="query" parameterType="com.itplayer.core.device.query.OrdinaryInfoQueryModel"
+            resultType="com.itplayer.core.device.entity.OrdinaryInfo">
+        SELECT * from dev_ordinaryInfo
+        <where>
+            <if test="device_id !=null ">
+                AND device_id =#{device_id}
+            </if>
+        </where>
+        <if test="start != null and pageSize != null">
+            limit #{start,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+    <select id="findByDevice" parameterType="com.itplayer.core.device.entity.Device"
+            resultType="com.itplayer.core.device.entity.OrdinaryInfo">
+        SELECT * FROM dev_ordinaryInfo WHERE device_id=#{id}
+
+    </select>
+</mapper>

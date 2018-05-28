@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itplayer.core.device.dao.DeviceDao">
+    <resultMap id="deviceResultMap" type="com.itplayer.core.device.entity.Device">
+        <result property="id" column="id"/>
+        <result property="createDate" column="createDate"/>
+        <result property="updateDate" column="updateDate"/>
+        <result property="deviceCode" column="deviceCode"/>
+        <result property="deviceName" column="deviceName"/>
+        <result property="deviceModel" column="deviceModel"/>
+        <result property="deviceFrame" column="deviceFrame"/>
+        <result property="deviceType" column="deviceType"/>
+        <result property="snCode" column="snCode"/>
+        <association property="area" column="area_id"
+                     javaType="com.itplayer.core.system.entity.Area">
+            <result property="id" column="aId"></result>
+            <result property="areaCode" column="aCode"></result>
+            <result property="areaName" column="aName"></result>
+        </association>
+        <association property="engineRoom" column="engineRoom_id"
+                     javaType="com.itplayer.core.device.entity.EngineRoom">
+            <result property="id" column="aId"></result>
+            <result property="roomCode" column="rCode"></result>
+            <result property="deviceRoomName" column="rName"></result>
+        </association>
+    </resultMap>
+
+    <insert id="create" parameterType="com.itplayer.core.device.entity.Device" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO dev_device(createDate,updateDate,deviceCode,engineRoom_id,area_id,deviceName,deviceModel,deviceFrame,snCode,deviceType)
+        VALUES (now(),now(),#{deviceCode},#{engineRoom.id},#{area.id},#{deviceName},#{deviceModel},#{deviceFrame},#{snCode},#{deviceType})
+    </insert>
+    <update id="update" parameterType="com.itplayer.core.device.entity.Device">
+        UPDATE dev_device
+        <set>
+            <if test="deviceName !=null and deviceName !=''">
+                deviceName=#{deviceName},
+            </if>
+            <if test="deviceModel !=null and deviceModel !=''">
+                deviceModel=#{deviceModel},
+            </if>
+            <if test="deviceFrame !=null and deviceFrame !=''">
+                deviceFrame=#{deviceFrame},
+            </if>
+            <if test="snCode !=null and snCode !=''">
+                snCode=#{snCode},
+            </if>
+            <if test="deviceType !=null and deviceType !=''">
+                deviceType=#{deviceType},
+            </if>
+            updateDate =now()
+        </set>
+        WHERE id=#{id}
+    </update>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+      DELETE FROM dev_device WHERE id=#{id}
+    </delete>
+    <select id="getByPrimaryKey" parameterType="java.lang.Long"
+            resultType="com.itplayer.core.device.entity.Device">
+      SELECT * FROM dev_device WHERE id=#{id}
+    </select>
+
+    <select id="findAll" resultType="com.itplayer.core.device.entity.Device">
+      SELECT * FROM dev_device
+    </select>
+    <delete id="batchDelete">
+        DELETE FROM dev_device WHERE serialNo in
+        <foreach item="ids" index="index" collection="array"
+                 open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
+
+
+    <select id="count" parameterType="com.itplayer.core.device.query.DeviceQueryModel" resultType="java.lang.Long">
+        SELECT count(id) FROM dev_device
+        <where>
+            <if test="deviceName !=null  and deviceName!=''">
+                AND deviceName LIKE concat('%',#{deviceName},'%')
+            </if>
+            <if test="area_id !=null">
+                AND area_id=#{area_id}
+            </if>
+            <if test="engineRoom_id !=null">
+                AND engineRoom_id=#{engineRoom_id}
+            </if>
+            <if test="deviceCode !=null and deviceCode !=''">
+                AND deviceCode=#{deviceCode}
+            </if>
+        </where>
+
+    </select>
+    <select id="query" parameterType="com.itplayer.core.device.query.DeviceQueryModel"
+            resultMap="deviceResultMap">
+        SELECT d.*,a.id as aid ,a.areaCode as aCode,a.areaName as aName ,en.id as rId,en.roomCode as
+        rRoom,en.deviceRoomName as rName
+        FROM dev_device d
+        LEFT JOIN sys_area a ON (d.area_id=a.id)
+        LEFT JOIN dev_engineroom en on (d.engineroom_id=en.id)
+        <where>
+            <if test="deviceName !=null  and deviceName!=''">
+                AND d.deviceName LIKE concat('%',#{deviceName},'%')
+            </if>
+            <if test="deviceCode !=null and deviceCode !=''">
+                AND d.deviceCode=#{deviceCode}
+            </if>
+            <if test="area_id !=null">
+                AND d.area_id=#{area_id}
+            </if>
+            <if test="engineRoom_id !=null">
+                AND d.engineRoom_id=#{engineRoom_id}
+            </if>
+        </where>
+        <if test="start != null and pageSize != null">
+            limit #{start,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+    <select id="findByDeviceCode" parameterType="java.lang.String" resultType="com.itplayer.core.device.entity.Device">
+        SELECT * FROM dev_device WHERE deviceCode=#{deviceCode}
+
+    </select>
+</mapper>

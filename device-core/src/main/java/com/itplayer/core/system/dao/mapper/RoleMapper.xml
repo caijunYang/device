@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itplayer.core.system.dao.RoleDao">
+
+    <resultMap id="roleResultMap" type="com.itplayer.core.system.entity.Role">
+        <id column="id" property="id"/>
+        <result column="createDate" property="createDate"/>
+        <result column="updateDate" property="updateDate"/>
+        <result column="roleCode" property="roleCode"/>
+        <result column="roleName" property="roleName"/>
+        <collection property="permissions" column="id" select="getPermissions"/>
+    </resultMap>
+    <select id="getPermissions" parameterType="java.lang.Long" resultType="com.itplayer.core.system.entity.Permission">
+		SELECT * FROM sys_permission WHERE  id IN (
+		   SELECT permission_id FROM sys_role_permission WHERE role_id=#{id}
+		)
+	</select>
+
+    <insert id="create" parameterType="com.itplayer.core.system.entity.Role" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_role(createDate,updateDate,roleCode,roleName)
+        VALUES (now(),now(),#{roleCode},#{roleName})
+    </insert>
+    <update id="update" parameterType="com.itplayer.core.system.entity.Role">
+        UPDATE sys_role
+        <set>
+            <if test="roleName !=null and roleName !=''">
+                roleName=#{roleName},
+            </if>
+            updateDate =now()
+        </set>
+        WHERE id=#{id}
+    </update>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+      DELETE FROM sys_role WHERE id=#{id}
+    </delete>
+    <select id="getByPrimaryKey" parameterType="java.lang.Long" resultType="com.itplayer.core.system.entity.Role">
+      SELECT * FROM sys_role WHERE id=#{id}
+    </select>
+    <select id="findAll" resultType="com.itplayer.core.system.entity.Role">
+      SELECT * FROM sys_role
+    </select>
+    <select id="count" parameterType="com.itplayer.core.system.query.ManagerQueryModel" resultType="java.lang.Long">
+        SELECT count(id) FROM sys_role
+        <where>
+            <if test="roleName !=null and roleName!=''">
+                AND roleName LIKE concat('%',#{roleName},'%')
+            </if>
+        </where>
+
+    </select>
+    <select id="query" parameterType="com.itplayer.core.system.query.ManagerQueryModel"
+            resultMap="roleResultMap">
+        SELECT * FROM sys_role
+        <where>
+            <if test="roleName !=null and roleName!=''">
+                AND roleName LIKE concat('%',#{roleName},'%')
+            </if>
+        </where>
+    </select>
+
+
+    <delete id="batchDelete">
+        DELETE FROM sys_role WHERE serialNo in
+        <foreach item="ids" index="index" collection="array"
+                 open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
+
+    <insert id="addPermission" parameterType="com.itplayer.core.system.entity.Role">
+        INSERT INTO sys_role_permission(role_id,permission_id) VALUES
+        <foreach collection="permissions" item="per" separator=",">
+            (#{id},#{per.id})
+        </foreach>
+    </insert>
+    <delete id="removePermission" parameterType="com.itplayer.core.system.entity.Role">
+        DELETE  FROM sys_role_permission WHERE role_id=#{id}
+    </delete>
+
+    <select id="findRoleIdsByManager" parameterType="java.lang.Long" resultType="java.lang.Long">
+        SELECT role_id FROM sys_manager_role WHERE manager_id =#{id}
+    </select>
+</mapper>

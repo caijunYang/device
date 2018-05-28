@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itplayer.core.device.dao.BbuDeviceInfoDao">
+    <insert id="create" parameterType="com.itplayer.core.device.entity.BbuDeviceInfo" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO dev_bbuDeviceInfo(createDate,updateDate,device_id,serialNo,fiberFrameAddr,fiberFramePort,targetDevice,targetDeviceModel,targetFiberFrame,physicalPort,serviceName,context)
+        VALUES (now(),now(),#{device.id},#{serialNo},#{fiberFrameAddr},#{fiberFramePort},#{targetDevice},#{targetDeviceModel},#{targetFiberFrame},#{physicalPort},#{serviceName},#{context})
+    </insert>
+    <update id="update" parameterType="com.itplayer.core.device.entity.BbuDeviceInfo">
+        UPDATE dev_bbuDeviceInfo
+        <set>
+            <if test="serialNo !=null and serialNo !=''">
+                serialNo=#{serialNo},
+            </if>
+            <if test="fiberFrameAddr !=null and fiberFrameAddr !=''">
+                fiberFrameAddr=#{fiberFrameAddr},
+            </if>
+            <if test="fiberFramePort !=null and fiberFramePort !=''">
+                fiberFramePort=#{fiberFramePort},
+            </if>
+            <if test="targetDevice !=null and targetDevice !=''">
+                targetDevice=#{targetDevice},
+            </if>
+            <if test="targetDeviceModel !=null and targetDeviceModel !=''">
+                targetDeviceModel=#{targetDeviceModel},
+            </if>
+            <if test="physicalPort !=null and physicalPort !=''">
+                physicalPort=#{physicalPort},
+            </if>
+            <if test="serviceName !=null and serviceName !=''">
+                serviceName=#{serviceName},
+            </if>
+            <if test="context !=null and context !=''">
+                context=#{context},
+            </if>
+            updateDate =now()
+        </set>
+        WHERE id=#{id}
+    </update>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+      DELETE FROM dev_bbuDeviceInfo WHERE id=#{id}
+    </delete>
+    <select id="getByPrimaryKey" parameterType="java.lang.Long"
+            resultType="com.itplayer.core.device.entity.BbuDeviceInfo">
+      SELECT * FROM dev_bbuDeviceInfo WHERE id=#{id}
+    </select>
+    <select id="findAll" resultType="com.itplayer.core.device.entity.BbuDeviceInfo">
+      SELECT * FROM dev_bbuDeviceInfo
+    </select>
+    <delete id="batchDelete">
+        DELETE FROM dev_bbuDeviceInfo WHERE serialNo in
+        <foreach item="ids" index="index" collection="array"
+                 open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
+    <select id="count" parameterType="com.itplayer.core.device.query.BbuDeviceInfoQueryModel" resultType="java.lang.Long">
+        SELECT count(id) FROM dev_bbuDeviceInfo
+        <where>
+            <if test="device_id !=null ">
+                AND device_id =#{device_id}
+            </if>
+        </where>
+
+    </select>
+    <select id="query" parameterType="com.itplayer.core.device.query.BbuDeviceInfoQueryModel"
+            resultType="com.itplayer.core.device.entity.BbuDeviceInfo">
+        SELECT * from dev_bbuDeviceInfo
+        <where>
+            <if test="device_id !=null ">
+                AND device_id =#{device_id}
+            </if>
+        </where>
+        <if test="start != null and pageSize != null">
+            limit #{start,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="findByDevice" parameterType="com.itplayer.core.device.entity.Device"
+            resultType="com.itplayer.core.device.entity.BbuDeviceInfo">
+        SELECT * FROM dev_bbuDeviceInfo WHERE device_id=#{id}
+
+    </select>
+</mapper>

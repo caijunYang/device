@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itplayer.core.system.dao.SystemLogDao">
+    <insert id="create" parameterType="com.itplayer.core.system.entity.SystemLog" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO sys_log(createDate,updateDate,name,loginip,permissionCode,content,accessUri,accessParams)
+        VALUES (now(),now(),#{name},#{loginip},#{permissionCode},#{content},#{accessUri},#{accessParams})
+    </insert>
+    <select id="count" parameterType="com.itplayer.core.system.query.SystemLogQueryModel" resultType="java.lang.Long">
+        SELECT count(id) FROM sys_log
+        <where>
+            <if test="name !=null and name!=''">
+                AND name LIKE concat('%',#{name},'%')
+            </if>
+            <if test="content !=null and content!=''">
+                AND content LIKE concat('%',#{content},'%')
+            </if>
+        </where>
+
+    </select>
+    <select id="query" parameterType="com.itplayer.core.system.query.SystemLogQueryModel"
+            resultType="com.itplayer.core.system.entity.SystemLog">
+        SELECT * from sys_log
+        <where>
+            <if test="name !=null and name!=''">
+                AND name LIKE concat('%',#{name},'%')
+            </if>
+            <if test="content !=null and content!=''">
+              AND content LIKE concat('%',#{content},'%')
+            </if>
+        </where>
+        <if test="start != null and pageSize != null">
+            limit #{start,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+</mapper>

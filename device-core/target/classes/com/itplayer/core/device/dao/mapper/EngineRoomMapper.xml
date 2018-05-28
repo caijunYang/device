@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itplayer.core.device.dao.EngineRoomDao">
+    <resultMap id="roomResultMap" type="com.itplayer.core.device.entity.EngineRoom">
+        <result column="id" property="id"/>
+        <result column="createDate" property="createDate"/>
+        <result column="updateDate" property="updateDate"/>
+        <result column="roomCode" property="roomCode"/>
+        <result column="deviceRoomName" property="deviceRoomName"/>
+        <result column="roomDesc" property="roomDesc"/>
+
+        <association property="area" column="area_id"
+                     javaType="com.itplayer.core.system.entity.Area">
+            <result property="id" column="aId"></result>
+            <result property="areaCode" column="aCode"></result>
+            <result property="areaName" column="aName"></result>
+        </association>
+    </resultMap>
+
+    <insert id="create" parameterType="com.itplayer.core.device.entity.EngineRoom" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO dev_engineRoom(createDate,updateDate,roomCode,deviceRoomName,roomDesc,area_id)
+        VALUES (now(),now(),#{roomCode},#{deviceRoomName},#{roomDesc},#{area.id})
+    </insert>
+    <update id="update" parameterType="com.itplayer.core.device.entity.EngineRoom">
+        UPDATE dev_engineRoom
+        <set>
+            <if test="deviceRoomName !=null and deviceRoomName !=''">
+                deviceRoomName=#{deviceRoomName},
+            </if>
+            <if test="roomDesc !=null and roomDesc !=''">
+                roomDesc=#{roomDesc},
+            </if>
+            <if test="area!=null">
+                area_id=#{area.id},
+            </if>
+            updateDate =now()
+        </set>
+        WHERE id=#{id}
+    </update>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+      DELETE FROM dev_engineRoom WHERE id=#{id}
+    </delete>
+    <select id="getByPrimaryKey" parameterType="java.lang.Long"
+            resultMap="roomResultMap">
+        SELECT d.*,a.id as aid ,a.areaCode as aCode,a.areaName as aName FROM dev_engineRoom d LEFT JOIN sys_area a
+        ON (d.area_id=a.id)
+        WHERE d.id=#{id}
+    </select>
+    <select id="findAll" resultType="com.itplayer.core.device.entity.EngineRoom">
+      SELECT * FROM dev_engineRoom
+    </select>
+    <delete id="batchDelete">
+        DELETE FROM dev_engineRoom WHERE serialNo in
+        <foreach item="ids" index="index" collection="array"
+                 open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
+
+    <select id="count" parameterType="com.itplayer.core.device.query.EngineRoomQueryModel" resultType="java.lang.Long">
+        SELECT count(id) FROM dev_engineRoom
+        <where>
+            <if test="roomName !=null and roomName!=''">
+                AND deviceRoomName LIKE concat('%',#{roomName},'%')
+            </if>
+            <if test="area_id !=null">
+                AND area_id=#{area_id}
+            </if>
+        </where>
+    </select>
+    <select id="query" parameterType="com.itplayer.core.system.query.AreaQueryModel"
+            resultMap="roomResultMap">
+        SELECT d.*,a.id as aid ,a.areaCode as aCode,a.areaName as aName FROM dev_engineRoom d LEFT JOIN sys_area a
+        ON (d.area_id=a.id)
+        <where>
+            <if test="roomName !=null and roomName!=''">
+                AND d.deviceRoomName LIKE concat('%',#{roomName},'%')
+            </if>
+            <if test="area_id != null">
+                AND d.area_id=#{area_id}
+            </if>
+        </where>
+
+        <if test="start != null and pageSize != null">
+            limit #{start,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="findByCode" parameterType="java.lang.String" resultMap="roomResultMap">
+        SELECT d.*,a.id as aid ,a.areaCode as aCode,a.areaName as aName FROM dev_engineRoom d LEFT JOIN sys_area a
+        ON (d.area_id=a.id)
+        WHERE d.roomCode=#{roomCode}
+    </select>
+</mapper>

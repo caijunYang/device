@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itplayer.core.device.dao.OltInfoDao">
+    <insert id="create" parameterType="com.itplayer.core.device.entity.OltInfo" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO dev_oltInfo(createDate,updateDate,device_id,port,serviceName,fiberFrameAddr,fiberFramePort,targetDevice,physicalPort,opticalName,opticalCore,lable)
+        VALUES (now(),now(),#{device.id},#{port},#{serviceName},#{fiberFrameAddr},#{fiberFramePort},#{targetDevice},#{physicalPort},#{opticalName},#{opticalCore},#{lable})
+    </insert>
+    <update id="update" parameterType="com.itplayer.core.device.entity.OltInfo">
+        UPDATE dev_oltInfo
+        <set>
+            <if test="device !=null ">
+                device_id=#{device.id},
+            </if>
+            <if test="port !=null and port !=''">
+                port=#{port},
+            </if>
+            <if test="serviceName !=null and serviceName !=''">
+                serviceName=#{serviceName},
+            </if>
+            <if test="fiberFrameAddr !=null and fiberFrameAddr !=''">
+                fiberFrameAddr=#{fiberFrameAddr},
+            </if>
+            <if test="fiberFramePort !=null and fiberFramePort !=''">
+                fiberFramePort=#{fiberFramePort},
+            </if>
+            <if test="targetDevice !=null and targetDevice !=''">
+                targetDevice=#{targetDevice},
+            </if>
+            <if test="physicalPort !=null and physicalPort !=''">
+                physicalPort=#{physicalPort},
+            </if>
+            <if test="opticalName !=null and opticalName !=''">
+                opticalName=#{opticalName},
+            </if>
+            <if test="opticalCore !=null and opticalCore !=''">
+                opticalCore=#{opticalCore},
+            </if>
+            <if test="lable !=null and lable !=''">
+                lable=#{lable},
+            </if>
+            updateDate =now()
+        </set>
+        WHERE id=#{id}
+    </update>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+      DELETE FROM dev_oltInfo WHERE id=#{id}
+    </delete>
+    <select id="getByPrimaryKey" parameterType="java.lang.Long"
+            resultType="com.itplayer.core.device.entity.OltInfo">
+      SELECT * FROM dev_oltInfo WHERE id=#{id}
+    </select>
+    <select id="findAll" resultType="com.itplayer.core.device.entity.OltInfo">
+      SELECT * FROM dev_oltInfo
+    </select>
+    <delete id="batchDelete">
+        DELETE FROM dev_oltInfo WHERE serialNo in
+        <foreach item="ids" index="index" collection="array"
+                 open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
+
+    <select id="count" parameterType="com.itplayer.core.device.query.OltInfoQueryModel" resultType="java.lang.Long">
+        SELECT count(id) FROM dev_oltInfo
+        <where>
+            <if test="device_id !=null ">
+                AND device_id =#{device_id}
+            </if>
+        </where>
+
+    </select>
+    <select id="query" parameterType="com.itplayer.core.device.query.OltInfoQueryModel"
+            resultType="com.itplayer.core.device.entity.OltInfo">
+        SELECT * from dev_oltInfo
+        <where>
+            <if test="device_id !=null ">
+                AND device_id =#{device_id}
+            </if>
+        </where>
+        <if test="start != null and pageSize != null">
+            limit #{start,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="findByDevice" parameterType="com.itplayer.core.device.entity.Device"
+            resultType="com.itplayer.core.device.entity.OltInfo">
+        SELECT * FROM dev_oltInfo WHERE device_id=#{id}
+
+    </select>
+</mapper>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itplayer.core.system.dao.AreaDao">
+    <insert id="create" parameterType="com.itplayer.core.system.entity.Area" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_area(createDate,updateDate,areaCode,areaName,parent_id)
+        VALUES (now(),now(),#{areaCode},#{areaName},#{parent.id})
+    </insert>
+    <update id="update" parameterType="com.itplayer.core.system.entity.Area">
+        UPDATE sys_area
+        <set>
+            <if test="areaName !=null and areaName !=''">
+                areaName=#{areaName},
+            </if>
+            updateDate =now()
+        </set>
+        WHERE id=#{id}
+    </update>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+      DELETE FROM sys_area WHERE id=#{id}
+    </delete>
+    <select id="getByPrimaryKey" parameterType="java.lang.Long" resultType="com.itplayer.core.system.entity.Area">
+      SELECT * FROM sys_area WHERE id=#{id}
+    </select>
+
+    <select id="findAll" resultType="com.itplayer.core.system.entity.Area">
+      SELECT * FROM sys_area
+    </select>
+    <delete id="batchDelete">
+        DELETE FROM sys_area WHERE serialNo in
+        <foreach item="ids" index="index" collection="array"
+                 open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
+    <select id="count" parameterType="com.itplayer.core.system.query.AreaQueryModel" resultType="java.lang.Long">
+        SELECT count(id) FROM sys_area
+        <where>
+            <if test="areaName !=null and areaName!=''">
+                AND areaName LIKE concat('%',#{areaName},'%')
+            </if>
+        </where>
+
+    </select>
+    <select id="query" parameterType="com.itplayer.core.system.query.AreaQueryModel"
+            resultType="com.itplayer.core.system.entity.Area">
+        SELECT * from sys_area
+        <where>
+            <if test="areaName !=null and areaName!=''">
+                AND areaName LIKE concat('%',#{areaName},'%')
+            </if>
+        </where>
+        <if test="start != null and pageSize != null">
+            limit #{start,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+    <select id="findByAreaCode" parameterType="java.lang.String" resultType="com.itplayer.core.system.entity.Area">
+           SELECT * from sys_area WHERE areaCode=#{areaCode}
+    </select>
+</mapper>

@@ -1,0 +1,6 @@
+.border-right-none{
+    border-right: none;
+}
+.datagrid-header-rownumber,.datagrid-cell-rownumber{
+	width:40px;
+}

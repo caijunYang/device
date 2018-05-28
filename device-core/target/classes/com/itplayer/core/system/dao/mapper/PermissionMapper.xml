@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itplayer.core.system.dao.PermissionDao">
+    <insert id="create" parameterType="com.itplayer.core.system.entity.Permission">
+        INSERT INTO sys_permission(createDate,updateDate,permissionName,permissionCode,permissionType,url,routerUrl,icon,sort,parent_id,lev,permissionPath,actionType)
+        VALUES (now(),now(),#{permissionName},#{permissionCode},#{permissionType},#{url},#{routerUrl},#{icon},#{sort},#{parent.id},#{lev},#{permissionPath},#{actionType})
+    </insert>
+    <update id="update" parameterType="com.itplayer.core.system.entity.Permission">
+        UPDATE sys_permission
+        <set>
+            <if test="name !=null and name !=''">
+                name=#{name},
+            </if>
+            <if test="resourceType !=null ">
+                resourceType=#{resourceType},
+            </if>
+            <if test="url !=null and url !=''">
+                url=#{url},
+            </if>
+            <if test="code !=null and code !=''">
+                code=#{code},
+            </if>
+            <if test="parentId !=null and parentId !=''">
+                parentId=#{parentId},
+            </if>
+            <if test="parentIds !=null and parentIds !=''">
+                parentIds=#{parentIds},
+            </if>
+            <if test="available !=null">
+                available=#{available},
+            </if>
+            udpateDate =now()
+        </set>
+        WHERE id=#{id}
+    </update>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+      DELETE FROM sys_permission WHERE id=#{id}
+    </delete>
+    <select id="getByPrimaryKey" parameterType="java.lang.Long" resultType="com.itplayer.core.system.entity.Permission">
+      SELECT * FROM sys_permission WHERE id=#{id}
+    </select>
+
+    <delete id="batchDelete">
+        DELETE FROM sys_permission WHERE serialNo in
+        <foreach item="ids" index="index" collection="array"
+                 open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
+
+    <!-- 查询所有全县资源 -->
+    <select id="findAll" resultType="com.itplayer.core.system.entity.Permission" resultMap="permissionResult">
+		SELECT * FROM sys_permission
+	</select>
+
+    <resultMap type="com.itplayer.core.system.entity.Permission" id="permissionResult">
+        <id property="id" column="id" />
+        <result property="createDate" column="createDate" />
+        <result property="updateDate" column="updateDate" />
+        <result property="permissionName" column="permissionName" />
+        <result property="permissionCode" column="permissionCode" />
+        <result property="permissionType" column="permissionType" />
+        <result property="url" column="url" />
+        <result property="routerUrl" column="routerUrl" />
+        <result property="sort" column="sort" />
+        <result property="lev" column="lev" />
+        <result property="permissionPath" column="permissionPath" />
+        <result property="actionType" column="actionType" />
+        <association property="parent" column="parent_id" select="getParent" />
+    </resultMap>
+
+    <select id="count" parameterType="com.itplayer.core.system.query.PermissionQueryModel" resultType="java.lang.Long">
+        SELECT count(id) FROM sys_permission
+        <where>
+            <if test="permissionName !=null and permissionName!=''">
+                AND permissionName LIKE concat('%',#{permissionName},'%')
+            </if>
+            <if test="permissionType!=null">
+                AND permissionType =#{permissionType}
+            </if>
+        </where>
+
+    </select>
+    <select id="query" parameterType="com.itplayer.core.system.query.PermissionQueryModel"
+            resultType="com.itplayer.core.system.entity.Permission">
+        SELECT * FROM sys_permission
+        <where>
+            <if test="permissionName !=null and permissionName!=''">
+                AND permissionName LIKE concat('%',#{permissionName},'%')
+            </if>
+            <if test="permissionType!=null">
+                AND permissionType =#{permissionType}
+            </if>
+        </where>
+        <if test="start != null and pageSize != null">
+            limit #{start,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+
+
+
+
+    <select id="getParent" resultType="com.itplayer.core.system.entity.Permission" parameterType="java.lang.Long">
+		SELECT * FROM sys_permission where id=#{id}
+	</select>
+
+
+    <!-- 根据管理员id查询管理员权限 TYPE = 'permission' AND -->
+    <select id="findPermissionListByManager" parameterType="com.itplayer.core.system.entity.Manager"
+            resultType="com.itplayer.core.system.entity.Permission">
+	 		SELECT * FROM sys_permission WHERE permissionType="ACTION" AND id IN
+		 		 (SELECT permission_id FROM sys_role_permission WHERE  role_id IN
+		   				 (SELECT role_id  FROM sys_manager_role  WHERE manager_id = #{id}))
+	</select>
+
+    <!-- 根据权管理员id查询菜单 -->
+    <select id="findMenuListByManager" parameterType="com.itplayer.core.system.entity.Manager"
+            resultMap="permissionResult">
+	  		SELECT * FROM sys_permission WHERE permissionType = 'MENU'   AND id IN
+		  		(SELECT permission_id FROM sys_role_permission  WHERE   role_id IN
+		    			(SELECT role_id FROM sys_manager_role  WHERE  manager_id = #{id} ))
+	</select>
+
+    <select id="findRootMenus" parameterType="com.itplayer.core.system.entity.Manager" resultType="com.itplayer.core.system.entity.Permission">
+		SELECT * FROM sys_permission  WHERE parent_id is NULL
+	</select>
+    <select id="findPermissionByRole" parameterType="com.itplayer.core.system.entity.Role"
+            resultType="com.itplayer.core.system.entity.Permission">
+		SELECT * FROM sys_permission WHERE   id IN(
+		SELECT permission_id FROM sys_role_permission WHERE role_id=#{id}
+		)
+	</select>
+</mapper>
