@@ -4,12 +4,17 @@ import com.itplayer.core.device.entity.dto.PortInfo;
 
 /**
  * Created by caijun.yang on 2018/4/16
+ * 重复限定：port,fiberFramePort，serialNo
  * 无线设备，打电话用的
  */
 
 public class BbuDeviceInfo extends DeviceInfo {
 
     private Device device;
+    /**
+     * bbu端口
+     */
+    private String port;
     /**
      * 序列号
      */
@@ -131,8 +136,17 @@ public class BbuDeviceInfo extends DeviceInfo {
     public BbuDeviceInfo() {
     }
 
+    public String getPort() {
+        return port;
+    }
+
+    public void setPort(String port) {
+        this.port = port;
+    }
+
     public BbuDeviceInfo(PortInfo portInfo) {
-        this.device=portInfo.getDevice();
+        this.port = portInfo.getPort();
+        this.device = portInfo.getDevice();
         super.setId(portInfo.getId());
         this.serialNo = portInfo.getSerialNo();
         this.fiberFrameAddr = portInfo.getFiberFrameAddr();

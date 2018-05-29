@@ -3,6 +3,7 @@ package com.itplayer.core.base.dao;
 
 import com.itplayer.core.base.entity.BaseEntity;
 import com.itplayer.core.base.query.BaseQueryModel;
+import com.itplayer.core.device.entity.BbuDeviceInfo;
 
 import java.util.List;
 
@@ -75,4 +76,6 @@ public interface BaseDao<T extends BaseEntity, PK> {
     Long count(BaseQueryModel qm);
 
     List<T> query(BaseQueryModel qm);
+
+    List<T> findByEntity(T t);
 }

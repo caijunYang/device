@@ -2,11 +2,14 @@ package com.itplayer.core.device.service.impl;
 
 import com.itplayer.core.base.enums.DeviceType;
 import com.itplayer.core.base.exception.SystemException;
+import com.itplayer.core.base.utils.StrUtils;
 import com.itplayer.core.device.entity.*;
 import com.itplayer.core.device.entity.dto.PortInfo;
 import com.itplayer.core.device.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by caijun.yang on 2018/5/26
@@ -39,36 +42,91 @@ public class PortInfoServiceImpl implements PortInfoService {
         switch (deviceType) {
             case ORDINARY:
                 OrdinaryInfo ordinaryInfo = new OrdinaryInfo(portInfo);
-                if (ordinaryInfo.getId() != null) {
-                    ordinaryInfoService.update(ordinaryInfo);
-                } else {
-                    ordinaryInfoService.create(ordinaryInfo);
-                }
+                ReportOrdinaryInfo(ordinaryInfo);
                 break;
             case OLT:
                 OltInfo oltInfo = new OltInfo(portInfo);
-                if (oltInfo.getId() != null) {
-                    oltInfoService.update(oltInfo);
-                } else {
-                    oltInfoService.create(oltInfo);
-                }
+                ReportOltInfo(oltInfo);
                 break;
             case IPRAN:
                 IpRanInfo ipRanInfo = new IpRanInfo(portInfo);
-                if (ipRanInfo.getId() != null) {
-                    ipRanInfoService.update(ipRanInfo);
-                } else {
-                    ipRanInfoService.create(ipRanInfo);
-                }
+                ReportIpRanInfo(ipRanInfo);
                 break;
             case BBU:
                 BbuDeviceInfo bbuDeviceInfo = new BbuDeviceInfo(portInfo);
-                if (bbuDeviceInfo.getId() != null) {
-                    bbuDeviceInfoService.update(bbuDeviceInfo);
-                } else {
-                    bbuDeviceInfoService.create(bbuDeviceInfo);
-                }
+                ReportBbuDeviceInfo(bbuDeviceInfo);
                 break;
+        }
+    }
+
+
+    public void ReportOrdinaryInfo(OrdinaryInfo ordinaryInfo) {
+        if (StrUtils.isNull(ordinaryInfo.getPort())) {
+            throw new SystemException("请填写端口");
+        }
+        if (StrUtils.isNull(ordinaryInfo.getFiberFramePort())) {
+            throw new SystemException("请填写跳纤架位置");
+        }
+        List<OrdinaryInfo> ordinaryInfos = ordinaryInfoService.findByEntity(ordinaryInfo);
+
+
+        if (ordinaryInfo.getId() != null) {
+            ordinaryInfoService.update(ordinaryInfo);
+        } else {
+            ordinaryInfoService.create(ordinaryInfo);
+        }
+    }
+
+    public void ReportOltInfo(OltInfo oltInfo) {
+        if (StrUtils.isNull(oltInfo.getPort())) {
+            throw new SystemException("请填写端口");
+        }
+        if (StrUtils.isNull(oltInfo.getFiberFramePort())) {
+            throw new SystemException("请填写跳纤架位置");
+        }
+        if (StrUtils.isNull(oltInfo.getTargetDevice())) {
+            throw new SystemException("请填写出局ODF架");
+
+        }
+        if (StrUtils.isNull(oltInfo.getPhysicalPort())) {
+            throw new SystemException("请填写ODF架框槽端子");
+
+        }
+        if (oltInfo.getId() != null) {
+            oltInfoService.update(oltInfo);
+        } else {
+            oltInfoService.create(oltInfo);
+        }
+    }
+
+    public void ReportIpRanInfo(IpRanInfo ipRanInfo) {
+        if (StrUtils.isNull(ipRanInfo.getPort())) {
+            throw new SystemException("请填写端口");
+        }
+        if (StrUtils.isNull(ipRanInfo.getFiberFramePort())) {
+            throw new SystemException("请填写跳纤架位置");
+        }
+        if (ipRanInfo.getId() != null) {
+            ipRanInfoService.update(ipRanInfo);
+        } else {
+            ipRanInfoService.create(ipRanInfo);
+        }
+    }
+
+    public void ReportBbuDeviceInfo(BbuDeviceInfo bbuDeviceInfo) {
+        if (StrUtils.isNull(bbuDeviceInfo.getPort())) {
+            throw new SystemException("请填写端口");
+        }
+        if (StrUtils.isNull(bbuDeviceInfo.getFiberFramePort())) {
+            throw new SystemException("请填写跳纤架位置");
+        }
+        if (StrUtils.isNull(bbuDeviceInfo.getSerialNo())) {
+            throw new SystemException("请填写编号");
+        }
+        if (bbuDeviceInfo.getId() != null) {
+            bbuDeviceInfoService.update(bbuDeviceInfo);
+        } else {
+            bbuDeviceInfoService.create(bbuDeviceInfo);
         }
     }
 }

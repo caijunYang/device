@@ -2,7 +2,9 @@ package com.itplayer.core.device.entity;
 
 import com.itplayer.core.device.entity.dto.PortInfo;
 
-
+/**
+ * port,fiberFramePort
+ */
 public class OrdinaryInfo extends DeviceInfo {
 
     /**

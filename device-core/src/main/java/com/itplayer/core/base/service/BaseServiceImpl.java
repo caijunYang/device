@@ -87,4 +87,9 @@ public abstract class BaseServiceImpl<T extends BaseEntity, PK> implements BaseS
     public List<T> findAll() {
         return dao.findAll();
     }
+
+    public List<T> findByEntity(T t) {
+        return dao.findByEntity(t);
+    }
+
 }

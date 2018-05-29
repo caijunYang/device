@@ -6,6 +6,7 @@ import com.itplayer.core.device.entity.dto.PortInfo;
 /**
  * Created by caijun.yang on 2018/4/16
  * 上网传输设备
+ * port，fiberFramePort，targetDevice，physicalPort
  */
 
 public class OltInfo extends DeviceInfo {

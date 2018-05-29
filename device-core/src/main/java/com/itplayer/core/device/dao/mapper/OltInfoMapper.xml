@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.itplayer.core.device.dao.OltInfoDao">
-    <insert id="create" parameterType="com.itplayer.core.device.entity.OltInfo" useGeneratedKeys="true" keyProperty="id">
+    <insert id="create" parameterType="com.itplayer.core.device.entity.OltInfo" useGeneratedKeys="true"
+            keyProperty="id">
         INSERT INTO dev_oltInfo(createDate,updateDate,device_id,port,serviceName,fiberFrameAddr,fiberFramePort,targetDevice,physicalPort,opticalName,opticalCore,lable)
         VALUES (now(),now(),#{device.id},#{port},#{serviceName},#{fiberFrameAddr},#{fiberFramePort},#{targetDevice},#{physicalPort},#{opticalName},#{opticalCore},#{lable})
     </insert>
@@ -85,6 +86,11 @@
     <select id="findByDevice" parameterType="com.itplayer.core.device.entity.Device"
             resultType="com.itplayer.core.device.entity.OltInfo">
         SELECT * FROM dev_oltInfo WHERE device_id=#{id}
+    </select>
 
+    <select id="findByEntity" parameterType="com.itplayer.core.device.entity.OltInfo"
+            resultType="com.itplayer.core.device.entity.OltInfo">
+        SELECT * FROM dev_bbuDeviceInfo WHERE
+        port=#{port} AND device_id=#{device.id} AND fiberFramePort=#{getFiberFramePort} AND targetDevice=#{targetDevice} AND physicalPort=#{physicalPort}
     </select>
 </mapper>

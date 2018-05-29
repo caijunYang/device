@@ -28,6 +28,7 @@ public interface BaseService<T extends BaseEntity, PK> {
     int batchDelete(PK[] ids);
 
     List<T> findAll();
-
+    
+    List<T> findByEntity(T t);
 
 }

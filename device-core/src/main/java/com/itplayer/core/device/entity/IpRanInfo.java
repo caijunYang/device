@@ -5,11 +5,15 @@ import com.itplayer.core.device.entity.dto.PortInfo;
 
 /**
  * Created by caijun.yang on 2018/4/16
+ * <p>
+ * port ，fiberFramePort
  * 4G传输设备
  */
 
 public class IpRanInfo extends DeviceInfo {
     private Device device;
+
+    private String port;
 
     /**
      * 跳纤架位置
@@ -111,8 +115,17 @@ public class IpRanInfo extends DeviceInfo {
     public IpRanInfo() {
     }
 
+    public String getPort() {
+        return port;
+    }
+
+    public void setPort(String port) {
+        this.port = port;
+    }
+
     public IpRanInfo(PortInfo portInfo) {
-        this.device=portInfo.getDevice();
+        this.port = portInfo.getPort();
+        this.device = portInfo.getDevice();
         this.fiberFrameAddr = portInfo.getFiberFrameAddr();
         this.fiberFramePort = portInfo.getFiberFramePort();
         this.targetDevice = portInfo.getTargetDevice();
