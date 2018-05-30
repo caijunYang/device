@@ -1,6 +1,8 @@
 package com.itplayer.core.device.service.impl;
 
+import com.itplayer.core.base.exception.SystemException;
 import com.itplayer.core.base.service.BaseServiceImpl;
+import com.itplayer.core.base.utils.StrUtils;
 import com.itplayer.core.device.dao.OrdinaryInfoDao;
 import com.itplayer.core.device.entity.Device;
 import com.itplayer.core.device.entity.OrdinaryInfo;
@@ -23,6 +25,38 @@ public class OrdinaryInfoServiceImpl extends BaseServiceImpl<OrdinaryInfo, Long>
     public void setOrdinaryInfoDao(OrdinaryInfoDao ordinaryInfoDao) {
         this.ordinaryInfoDao = ordinaryInfoDao;
         super.setDao(ordinaryInfoDao);
+    }
+
+    public void validate(OrdinaryInfo ordinaryInfo) {
+        if (StrUtils.isNull(ordinaryInfo.getPort())) {
+            throw new SystemException("请填写端口");
+        }
+        if (StrUtils.isNull(ordinaryInfo.getFiberFramePort())) {
+            throw new SystemException("请填写跳纤架位置");
+        }
+    }
+
+    @Override
+    public int create(OrdinaryInfo ordinaryInfo) {
+        validate(ordinaryInfo);
+        List<OrdinaryInfo> ordinaryInfos = findByEntity(ordinaryInfo);
+        if (!ordinaryInfos.isEmpty()) {
+            throw new SystemException("端口和跳纤架位置重复！");
+        }
+        return super.create(ordinaryInfo);
+    }
+
+    @Override
+    public int update(OrdinaryInfo ordinaryInfo) {
+        validate(ordinaryInfo);
+        List<OrdinaryInfo> ordinaryInfos = findByEntity(ordinaryInfo);
+        if (!ordinaryInfos.isEmpty()) {
+            OrdinaryInfo oldOrdinaryInfo = ordinaryInfos.get(0);
+            if (!oldOrdinaryInfo.getId().equals(ordinaryInfo.getId())) {
+                throw new SystemException("端口和跳纤架位置重复！");
+            }
+        }
+        return super.update(ordinaryInfo);
     }
 
     @Override
@@ -63,7 +97,7 @@ public class OrdinaryInfoServiceImpl extends BaseServiceImpl<OrdinaryInfo, Long>
             return workBook;
         }
         for (int i = 0; i < ordinaryInfos.size(); i++) {
-            row=sheet.createRow(index++);
+            row = sheet.createRow(index++);
             OrdinaryInfo ordinaryInfo = ordinaryInfos.get(i);
             if (i == 0) {
                 cell = row.createCell(0);

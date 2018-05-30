@@ -219,8 +219,8 @@
                         $.messager.alert("温馨提示", "请选中一行数据!!", "info");
                         return;
                     }
-                    var id=rowData.id;
-                    window.location.href="/dev/device/export/"+id
+                    var id = rowData.id;
+                    window.location.href = "/dev/device/export/" + id
                 }
             };
             $(".easyui-linkbutton").bind("click", function () {
@@ -420,6 +420,7 @@
                 singleSelect: true,
                 columns: [[
                     {field: 'serialNo', title: '序列号', width: 1},
+                    {field: 'port', title: '端口', width: 1},
                     {field: 'fiberFrameAddr', title: '对应跳纤架（ODF）', width: 1},
                     {field: 'fiberFramePort', title: '跳纤架框槽端子（ODFB面）', width: 1},
                     {field: 'targetDevice', title: '对端设备', width: 1},
@@ -457,6 +458,7 @@
                 fitColumns: true,
                 singleSelect: true,
                 columns: [[
+                    {field: 'port', title: '端口', width: 1},
                     {field: 'fiberFrameAddr', title: '对应跳纤架（ODF）', width: 1},
                     {field: 'fiberFramePort', title: '跳纤架框槽端子（ODFB面）', width: 1},
                     {field: 'targetDevice', title: '对端设备', width: 1},

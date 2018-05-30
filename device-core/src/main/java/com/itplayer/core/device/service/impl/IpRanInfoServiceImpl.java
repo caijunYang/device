@@ -1,6 +1,8 @@
 package com.itplayer.core.device.service.impl;
 
+import com.itplayer.core.base.exception.SystemException;
 import com.itplayer.core.base.service.BaseServiceImpl;
+import com.itplayer.core.base.utils.StrUtils;
 import com.itplayer.core.device.dao.IpRanInfoDao;
 import com.itplayer.core.device.entity.BbuDeviceInfo;
 import com.itplayer.core.device.entity.Device;
@@ -29,6 +31,35 @@ public class IpRanInfoServiceImpl extends BaseServiceImpl<IpRanInfo, Long> imple
         super.setDao(ipRanInfoDao);
     }
 
+    public void validate(IpRanInfo ipRanInfo) {
+        if (StrUtils.isNull(ipRanInfo.getPort())) {
+            throw new SystemException("请填写端口");
+        }
+        if (StrUtils.isNull(ipRanInfo.getFiberFramePort())) {
+            throw new SystemException("请填写跳纤架位置");
+        }
+    }
+
+    @Override
+    public int create(IpRanInfo ipRanInfo) {
+        validate(ipRanInfo);
+        List<IpRanInfo> ipRanInfos = findByEntity(ipRanInfo);
+        if (!ipRanInfos.isEmpty()) {
+            throw new SystemException("已存在同端口位置的信息");
+        }
+        return super.create(ipRanInfo);
+    }
+
+    @Override
+    public int update(IpRanInfo ipRanInfo) {
+        validate(ipRanInfo);
+        List<IpRanInfo> ipRanInfos = findByEntity(ipRanInfo);
+        if (!ipRanInfos.isEmpty() && !ipRanInfos.get(0).getId().equals(ipRanInfo.getId())) {
+            throw new SystemException("已存在同端口位置的信息");
+        }
+        return super.update(ipRanInfo);
+    }
+
     @Override
     public HSSFWorkbook export(Device device) {
         //创建工作簿
@@ -48,20 +79,21 @@ public class IpRanInfoServiceImpl extends BaseServiceImpl<IpRanInfo, Long> imple
         cell.setCellValue("本端所在机架");
         cell = row.createCell(4);
         cell.setCellValue("SN码， ipran独有");
-
         cell = row.createCell(5);
-        cell.setCellValue("跳纤架位置");
+        cell.setCellValue("端口");
         cell = row.createCell(6);
-        cell.setCellValue("跳纤架子端口");
+        cell.setCellValue("跳纤架位置");
         cell = row.createCell(7);
-        cell.setCellValue("对端设备");
+        cell.setCellValue("跳纤架子端口");
         cell = row.createCell(8);
-        cell.setCellValue("对端设备型号");
+        cell.setCellValue("对端设备");
         cell = row.createCell(9);
-        cell.setCellValue("对端设备架框");
+        cell.setCellValue("对端设备型号");
         cell = row.createCell(10);
-        cell.setCellValue("对端设备物理端口");
+        cell.setCellValue("对端设备架框");
         cell = row.createCell(11);
+        cell.setCellValue("对端设备物理端口");
+        cell = row.createCell(12);
         cell.setCellValue("业务名称");
         int index = 1;
         if (null == ipRanInfos || ipRanInfos.size() < 1) {
@@ -83,18 +115,20 @@ public class IpRanInfoServiceImpl extends BaseServiceImpl<IpRanInfo, Long> imple
                 cell.setCellValue(device.getSnCode());
             }
             cell = row.createCell(5);
-            cell.setCellValue(ipRanInfo.getFiberFrameAddr());
+            cell.setCellValue(ipRanInfo.getPort());
             cell = row.createCell(6);
-            cell.setCellValue(ipRanInfo.getFiberFramePort());
+            cell.setCellValue(ipRanInfo.getFiberFrameAddr());
             cell = row.createCell(7);
-            cell.setCellValue(ipRanInfo.getTargetDevice());
+            cell.setCellValue(ipRanInfo.getFiberFramePort());
             cell = row.createCell(8);
-            cell.setCellValue(ipRanInfo.getTargetDeviceModel());
+            cell.setCellValue(ipRanInfo.getTargetDevice());
             cell = row.createCell(9);
-            cell.setCellValue(ipRanInfo.getTargetFiberFrame());
+            cell.setCellValue(ipRanInfo.getTargetDeviceModel());
             cell = row.createCell(10);
-            cell.setCellValue(ipRanInfo.getPhysicalPort());
+            cell.setCellValue(ipRanInfo.getTargetFiberFrame());
             cell = row.createCell(11);
+            cell.setCellValue(ipRanInfo.getPhysicalPort());
+            cell = row.createCell(12);
             cell.setCellValue(ipRanInfo.getServiceName());
         }
         return workBook;

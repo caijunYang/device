@@ -1,6 +1,8 @@
 package com.itplayer.core.device.service.impl;
 
+import com.itplayer.core.base.exception.SystemException;
 import com.itplayer.core.base.service.BaseServiceImpl;
+import com.itplayer.core.base.utils.StrUtils;
 import com.itplayer.core.device.dao.BbuDeviceInfoDao;
 import com.itplayer.core.device.entity.BbuDeviceInfo;
 import com.itplayer.core.device.entity.Device;
@@ -49,18 +51,20 @@ public class BbuDeviceInfoServiceImpl extends BaseServiceImpl<BbuDeviceInfo, Lon
         cell = row.createCell(4);
         cell.setCellValue("序列号");
         cell = row.createCell(5);
-        cell.setCellValue("跳纤架位置");
+        cell.setCellValue("端口");
         cell = row.createCell(6);
-        cell.setCellValue("跳纤架子端口");
+        cell.setCellValue("跳纤架位置");
         cell = row.createCell(7);
-        cell.setCellValue("对端设备");
+        cell.setCellValue("跳纤架子端口");
         cell = row.createCell(8);
-        cell.setCellValue("对端设备型号");
+        cell.setCellValue("对端设备");
         cell = row.createCell(9);
-        cell.setCellValue("对端设备架框");
+        cell.setCellValue("对端设备型号");
         cell = row.createCell(10);
-        cell.setCellValue("对端设备物理端口");
+        cell.setCellValue("对端设备架框");
         cell = row.createCell(11);
+        cell.setCellValue("对端设备物理端口");
+        cell = row.createCell(12);
         cell.setCellValue("业务名称");
         int index = 1;
         if (null == ordinaryInfos || ordinaryInfos.size() < 1) {
@@ -82,18 +86,20 @@ public class BbuDeviceInfoServiceImpl extends BaseServiceImpl<BbuDeviceInfo, Lon
             cell = row.createCell(4);
             cell.setCellValue(bbuDeviceInfo.getSerialNo());
             cell = row.createCell(5);
-            cell.setCellValue(bbuDeviceInfo.getFiberFrameAddr());
+            cell.setCellValue(bbuDeviceInfo.getPort());
             cell = row.createCell(6);
-            cell.setCellValue(bbuDeviceInfo.getFiberFramePort());
+            cell.setCellValue(bbuDeviceInfo.getFiberFrameAddr());
             cell = row.createCell(7);
-            cell.setCellValue(bbuDeviceInfo.getTargetDevice());
+            cell.setCellValue(bbuDeviceInfo.getFiberFramePort());
             cell = row.createCell(8);
-            cell.setCellValue(bbuDeviceInfo.getTargetDeviceModel());
+            cell.setCellValue(bbuDeviceInfo.getTargetDevice());
             cell = row.createCell(9);
-            cell.setCellValue(bbuDeviceInfo.getTargetFiberFrame());
+            cell.setCellValue(bbuDeviceInfo.getTargetDeviceModel());
             cell = row.createCell(10);
-            cell.setCellValue(bbuDeviceInfo.getPhysicalPort());
+            cell.setCellValue(bbuDeviceInfo.getTargetFiberFrame());
             cell = row.createCell(11);
+            cell.setCellValue(bbuDeviceInfo.getPhysicalPort());
+            cell = row.createCell(12);
             cell.setCellValue(bbuDeviceInfo.getServiceName());
         }
         return workBook;
@@ -102,5 +108,37 @@ public class BbuDeviceInfoServiceImpl extends BaseServiceImpl<BbuDeviceInfo, Lon
     @Override
     public List<BbuDeviceInfo> findByDevice(Device device) {
         return bbuDeviceInfoDao.findByDevice(device);
+    }
+
+    @Override
+    public int create(BbuDeviceInfo bbuDeviceInfo) {
+        validate(bbuDeviceInfo);
+        List<BbuDeviceInfo> bbuDeviceInfos = findByEntity(bbuDeviceInfo);
+        if (!bbuDeviceInfos.isEmpty()) {
+            throw new SystemException("已存在同端口位置的信息");
+        }
+        return super.create(bbuDeviceInfo);
+    }
+
+    @Override
+    public int update(BbuDeviceInfo bbuDeviceInfo) {
+        validate(bbuDeviceInfo);
+        List<BbuDeviceInfo> bbuDeviceInfos = findByEntity(bbuDeviceInfo);
+        if (!bbuDeviceInfos.isEmpty() && !bbuDeviceInfos.get(0).getId().equals(bbuDeviceInfo.getId())) {
+            throw new SystemException("已存在同端口位置的信息");
+        }
+        return super.update(bbuDeviceInfo);
+    }
+
+    private void validate(BbuDeviceInfo bbuDeviceInfo) {
+        if (StrUtils.isNull(bbuDeviceInfo.getPort())) {
+            throw new SystemException("请填写端口");
+        }
+        if (StrUtils.isNull(bbuDeviceInfo.getFiberFramePort())) {
+            throw new SystemException("请填写跳纤架位置");
+        }
+        if (StrUtils.isNull(bbuDeviceInfo.getSerialNo())) {
+            throw new SystemException("请填写编号");
+        }
     }
 }

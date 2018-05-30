@@ -1,6 +1,8 @@
 package com.itplayer.core.device.service.impl;
 
+import com.itplayer.core.base.exception.SystemException;
 import com.itplayer.core.base.service.BaseServiceImpl;
+import com.itplayer.core.base.utils.StrUtils;
 import com.itplayer.core.device.dao.OltInfoDao;
 import com.itplayer.core.device.entity.BbuDeviceInfo;
 import com.itplayer.core.device.entity.Device;
@@ -27,6 +29,43 @@ public class OltInfoServiceImpl extends BaseServiceImpl<OltInfo, Long> implement
     public void setOltInfoDao(OltInfoDao oltInfoDao) {
         this.oltInfoDao = oltInfoDao;
         super.setDao(oltInfoDao);
+    }
+    public void validate(OltInfo oltInfo) {
+        if (StrUtils.isNull(oltInfo.getPort())) {
+            throw new SystemException("请填写端口");
+        }
+        if (StrUtils.isNull(oltInfo.getFiberFramePort())) {
+            throw new SystemException("请填写跳纤架位置");
+        }
+        if (StrUtils.isNull(oltInfo.getTargetDevice())) {
+            throw new SystemException("请填写出局ODF架");
+
+        }
+        if (StrUtils.isNull(oltInfo.getPhysicalPort())) {
+            throw new SystemException("请填写ODF架框槽端子");
+
+        }
+
+    }
+
+    @Override
+    public int create(OltInfo oltInfo) {
+        validate(oltInfo);
+        List<OltInfo> oltInfos = findByEntity(oltInfo);
+        if(!oltInfos.isEmpty()){
+            throw new SystemException("已存在同端口位置的信息");
+        }
+        return super.create(oltInfo);
+    }
+
+    @Override
+    public int update(OltInfo oltInfo) {
+        validate(oltInfo);
+        List<OltInfo> oltInfos = findByEntity(oltInfo);
+        if(!oltInfos.isEmpty()&&oltInfos.get(0).getId().equals(oltInfo.getId())){
+            throw new SystemException("已存在同端口位置的信息");
+        }
+        return super.update(oltInfo);
     }
 
     @Override
