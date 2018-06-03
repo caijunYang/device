@@ -42,7 +42,7 @@ public class PortInfoServiceImpl implements PortInfoService {
         switch (deviceType) {
             case ORDINARY:
                 OrdinaryInfo ordinaryInfo = new OrdinaryInfo(portInfo);
-                if (ordinaryInfo.getId() == null) {
+                if (ordinaryInfo.getId() == null || ordinaryInfo.getId() == 0) {
                     ordinaryInfoService.create(ordinaryInfo);
                 } else {
                     ordinaryInfoService.update(ordinaryInfo);
@@ -50,7 +50,7 @@ public class PortInfoServiceImpl implements PortInfoService {
                 break;
             case OLT:
                 OltInfo oltInfo = new OltInfo(portInfo);
-                if (oltInfo.getId() == null) {
+                if (oltInfo.getId() == null || oltInfo.getId() == 0) {
                     oltInfoService.create(oltInfo);
                 } else {
                     oltInfoService.update(oltInfo);
@@ -58,7 +58,7 @@ public class PortInfoServiceImpl implements PortInfoService {
                 break;
             case IPRAN:
                 IpRanInfo ipRanInfo = new IpRanInfo(portInfo);
-                if (ipRanInfo.getId() == null) {
+                if (ipRanInfo.getId() == null || ipRanInfo.getId() == 0) {
                     ipRanInfoService.create(ipRanInfo);
                 } else {
                     ipRanInfoService.update(ipRanInfo);
@@ -66,7 +66,7 @@ public class PortInfoServiceImpl implements PortInfoService {
                 break;
             case BBU:
                 BbuDeviceInfo bbuDeviceInfo = new BbuDeviceInfo(portInfo);
-                if (bbuDeviceInfo.getId() == null) {
+                if (bbuDeviceInfo.getId() == null || bbuDeviceInfo.getId() == 0) {
                     bbuDeviceInfoService.create(bbuDeviceInfo);
                 } else {
                     bbuDeviceInfoService.update(bbuDeviceInfo);

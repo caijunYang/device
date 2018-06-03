@@ -2,12 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.itplayer.core.device.dao.BbuDeviceInfoDao">
     <insert id="create" parameterType="com.itplayer.core.device.entity.BbuDeviceInfo" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO dev_bbuDeviceInfo(createDate,updateDate,device_id,serialNo,fiberFrameAddr,fiberFramePort,targetDevice,targetDeviceModel,targetFiberFrame,physicalPort,serviceName,context)
-        VALUES (now(),now(),#{device.id},#{serialNo},#{fiberFrameAddr},#{fiberFramePort},#{targetDevice},#{targetDeviceModel},#{targetFiberFrame},#{physicalPort},#{serviceName},#{context})
+        INSERT INTO dev_bbuDeviceInfo(createDate,updateDate,device_id,port,serialNo,fiberFrameAddr,fiberFramePort,targetDevice,targetDeviceModel,targetFiberFrame,physicalPort,serviceName,context)
+        VALUES (now(),now(),#{device.id},#{port},#{serialNo},#{fiberFrameAddr},#{fiberFramePort},#{targetDevice},#{targetDeviceModel},#{targetFiberFrame},#{physicalPort},#{serviceName},#{context})
     </insert>
     <update id="update" parameterType="com.itplayer.core.device.entity.BbuDeviceInfo">
         UPDATE dev_bbuDeviceInfo
         <set>
+            <if test="port !=null and port !=''">
+                port=#{port},
+            </if>
             <if test="serialNo !=null and serialNo !=''">
                 serialNo=#{serialNo},
             </if>
@@ -79,5 +82,11 @@
             resultType="com.itplayer.core.device.entity.BbuDeviceInfo">
         SELECT * FROM dev_bbuDeviceInfo WHERE device_id=#{id}
 
+    </select>
+
+    <select id="findByEntity" parameterType="com.itplayer.core.device.entity.BbuDeviceInfo"
+            resultType="com.itplayer.core.device.entity.BbuDeviceInfo">
+        SELECT * FROM dev_bbuDeviceInfo
+        WHERE  port=#{port} AND device_id=#{device.id} AND fiberFramePort=#{fiberFramePort} AND serialNo=#{serialNo}
     </select>
 </mapper>

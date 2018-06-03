@@ -1,6 +1,5 @@
 package com.itplayer.core.device.entity;
 
-import com.itplayer.core.base.entity.MetaEntity;
 import com.itplayer.core.device.entity.dto.PortInfo;
 
 /**

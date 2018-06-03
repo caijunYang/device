@@ -36,7 +36,7 @@ public class IpRanInfoServiceImpl extends BaseServiceImpl<IpRanInfo, Long> imple
             throw new SystemException("请填写端口");
         }
         if (StrUtils.isNull(ipRanInfo.getFiberFramePort())) {
-            throw new SystemException("请填写跳纤架位置");
+            throw new SystemException("请填写跳纤架端口");
         }
     }
 

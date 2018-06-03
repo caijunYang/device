@@ -35,7 +35,7 @@ public class OltInfoServiceImpl extends BaseServiceImpl<OltInfo, Long> implement
             throw new SystemException("请填写端口");
         }
         if (StrUtils.isNull(oltInfo.getFiberFramePort())) {
-            throw new SystemException("请填写跳纤架位置");
+            throw new SystemException("请填写跳纤架端口");
         }
         if (StrUtils.isNull(oltInfo.getTargetDevice())) {
             throw new SystemException("请填写出局ODF架");

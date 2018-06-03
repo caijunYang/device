@@ -5,6 +5,13 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>设备管理系统</title>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: url("./images/back.jpg") center no-repeat;
+        }
+    </style>
     <!-- 1.引入外部资源 -->
     <%@ include file="/js/common.jsp" %>
     <script type="text/javascript">
@@ -98,28 +105,30 @@
     </script>
 </head>
 <body>
-<div align="center" style="margin-top:150px;">
-    <div title="登陆" class="easyui-panel" style="width:250px;height:200;">
-        <form id="loginForm" method="post">
-            <table align="center">
-                <tr>
-                    <td>用户名:</td>
-                    <td><input name="username" class="easyui-validatebox" required="true" value="admin"></td>
-                </tr>
-                <tr>
-                    <td>密码:</td>
-                    <td><input name="password" type="password" class="easyui-validatebox" value="123456"
-                               required="true">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#" class="easyui-linkbutton" onclick="login();">登陆</a>
-                        <a href="#" class="easyui-linkbutton" onclick="reset();">重置</a>
-                    </td>
-                </tr>
-            </table>
-        </form>
+<div >
+    <div align="center" style="padding-top: 10%;padding-right:30% " >
+        <div title="设备管理系统登陆" class="easyui-panel" style="width:300px;height:150px;">
+            <form id="loginForm" method="post">
+                <table align="center" style="padding-top: 10px">
+                    <tr >
+                        <td>用户名:</td>
+                        <td><input name="username" class="easyui-validatebox" required="true" value="admin"></td>
+                    </tr>
+                    <tr>
+                        <td>密码:</td>
+                        <td><input name="password" type="password" class="easyui-validatebox" value="123456"
+                                   required="true">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <a href="#" class="easyui-linkbutton" onclick="login();">登陆</a>
+                            <a href="#" class="easyui-linkbutton" onclick="reset();">重置</a>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
     </div>
 </div>
 </body>

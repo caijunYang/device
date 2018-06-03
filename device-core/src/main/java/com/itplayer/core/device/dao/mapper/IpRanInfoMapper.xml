@@ -88,6 +88,6 @@
     <select id="findByEntity" parameterType="com.itplayer.core.device.entity.IpRanInfo"
             resultType="com.itplayer.core.device.entity.IpRanInfo">
         SELECT * FROM dev_bbuDeviceInfo
-        WHERE  port=#{port} AND device_id=#{device.id} AND fiberFramePort=#{getFiberFramePort}
+        WHERE  port=#{port} AND device_id=#{device.id} AND fiberFramePort=#{fiberFramePort}
     </select>
 </mapper>

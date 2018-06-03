@@ -32,44 +32,44 @@ public class SystemLoginFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        filterChain.doFilter(servletRequest,servletResponse);
-//        HttpServletRequest request = (HttpServletRequest) servletRequest;
-//        HttpServletResponse response = (HttpServletResponse) servletResponse;
-//        String remoteAddr = request.getRequestURI();
-//        boolean match = false;
-//        for (String url : annoUrl) {
-//            match = antPathMatcher.match(url, remoteAddr);
-//            if (match) {
-//                break;
-//            }
-//        }
-//        if (match) {
-//            filterChain.doFilter(request, response);
-//        } else {
-//            Manager loginManager = (Manager) request.getSession().getAttribute(SessionUtils.LOGIN_MANAGER);
-//            if (null == loginManager) {
-////                response.sendRedirect(request.getContextPath() + "/login.jsp");
-//                ResponseData responseData = new ResponseData();
-//                responseData.setCode(HttpStatus.SC_FORBIDDEN);
-//                responseData.setMsg("认证失败，未登录");
-//                response.setCharacterEncoding("UTF-8");
-//                response.setContentType("application/json; charset=utf-8");
-//                PrintWriter out = null;
-//                try {
-//                    out = response.getWriter();
-//                } catch (Exception ex) {
-//                    ex.printStackTrace();
-//                }
-//                String dataString = JsonUtils.obj2Str(responseData);
-//                if (null != out) {
-//                    out.write(dataString);
-//                    out.flush();
-//                    out.close();
-//                }
-//            } else {
-//                filterChain.doFilter(servletRequest, servletResponse);
-//            }
-//        }
+//        filterChain.doFilter(servletRequest,servletResponse);
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+        String remoteAddr = request.getRequestURI();
+        boolean match = false;
+        for (String url : annoUrl) {
+            match = antPathMatcher.match(url, remoteAddr);
+            if (match) {
+                break;
+            }
+        }
+        if (match) {
+            filterChain.doFilter(request, response);
+        } else {
+            Manager loginManager = (Manager) request.getSession().getAttribute(SessionUtils.LOGIN_MANAGER);
+            if (null == loginManager) {
+//                response.sendRedirect(request.getContextPath() + "/login.jsp");
+                ResponseData responseData = new ResponseData();
+                responseData.setCode(HttpStatus.SC_FORBIDDEN);
+                responseData.setMsg("认证失败，未登录");
+                response.setCharacterEncoding("UTF-8");
+                response.setContentType("application/json; charset=utf-8");
+                PrintWriter out = null;
+                try {
+                    out = response.getWriter();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                String dataString = JsonUtils.obj2Str(responseData);
+                if (null != out) {
+                    out.write(dataString);
+                    out.flush();
+                    out.close();
+                }
+            } else {
+                filterChain.doFilter(servletRequest, servletResponse);
+            }
+        }
     }
 
     @Override

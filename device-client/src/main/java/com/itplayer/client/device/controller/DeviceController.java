@@ -55,7 +55,7 @@ public class DeviceController extends BaseController {
     public ResponseData queryRoomByArea(@PathVariable("areaId") Long areaId) {
         EngineRoomQueryModel queryModel = new EngineRoomQueryModel();
         queryModel.setArea_id(areaId);
-        queryModel.setPageSize(Integer.MAX_VALUE);
+        queryModel.setPageSize(5000);
         PageResult<EngineRoom> engineRoomPageResult = engineRoomService.queryPage(queryModel);
         return success(engineRoomPageResult.getRows());
     }
@@ -63,8 +63,7 @@ public class DeviceController extends BaseController {
     @GetMapping("/queryDevice/{roomId}")
     public ResponseData queryDeviceByRoom(@PathVariable("roomId") Long roomId) {
         DeviceQueryModel queryModel = new DeviceQueryModel();
-        queryModel.setPageSize(Integer.MAX_VALUE);
-        queryModel.setPageSize(Integer.MAX_VALUE);
+        queryModel.setPageSize(5000);
         queryModel.setEngineRoom_id(roomId);
         PageResult<Device> devicePageResult = deviceService.queryPage(queryModel);
         return success(devicePageResult.getRows());

@@ -29,20 +29,7 @@ public class PageResult<T> {
 		this.totalCount = totalCount;
 		this.currentPage = currentPage < 1 ? 1 : currentPage;// 错误处理
 		this.pageSize = pageSize < 1 ? 10 : pageSize;// 错误处理
-
-		// 总页数:计算出来
-		// 方案1
-		// if (this.totalCount % this.pageSize == 0) {
-		// this.totalPage = this.totalCount / this.pageSize;
-		// } else {
-		// this.totalPage = this.totalCount / this.pageSize + 1;
-		// }
-		// 方案2
-		// totalCount pageSize totalPage
-		// 110 10 11 110+10-1=119 119/10=11
-		// 101 10 11 101+10-1=110 110/10=11
 		this.totalPage = (this.totalCount + this.pageSize - 1) / this.pageSize;
-
 		// 当前页数>总页数
 		this.currentPage = this.currentPage > this.totalPage ? this.totalPage : this.currentPage;
 

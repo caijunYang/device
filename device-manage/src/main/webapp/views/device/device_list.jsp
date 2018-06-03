@@ -1049,29 +1049,34 @@
                     序 &emsp; &emsp; &emsp; 号:<input name="serialNo" class="easyui-validatebox" required="true">&emsp;
                 </td>
                 <td>
-                    跳 纤 架 位 置:<input name="fiberFrameAddr" class="easyui-validatebox" required="true">
+                    端 &emsp; &emsp; &emsp; 口:<input name="port" class="easyui-validatebox" required="true">
                 </td>
             </tr>
             <tr>
+                <td>
+                    跳 纤 架 位 置:<input name="fiberFrameAddr" class="easyui-validatebox" required="true">
+                </td>
                 <td>
                     跳 纤 架 端 口:<input name="fiberFramePort" class="easyui-validatebox" required="true">&emsp;
                 </td>
+            </tr>
+            <tr>
                 <td>
                     对&nbsp;端&emsp;设&nbsp;备 :<input name="targetDevice" class="easyui-validatebox" required="true">
                 </td>
-            </tr>
-            <tr>
                 <td>
                     对端设备型号:<input name="targetDeviceModel" class="easyui-validatebox" required="true">&emsp;
                 </td>
-                <td>
-                    对端设备架框:<input name="targetFiberFrame" class="easyui-validatebox" required="true">
-                </td>
             </tr>
             <tr>
                 <td>
+                    对端设备架框:<input name="targetFiberFrame" class="easyui-validatebox" required="true">
+                </td>
+                <td>
                     对端设备端口:<input name="physicalPort" class="easyui-validatebox" required="true">&emsp;
                 </td>
+            </tr>
+            <tr>
                 <td>
                     业&nbsp;务&emsp;名&nbsp;称 :<input name="serviceName" class="easyui-validatebox" required="true">
                 </td>
@@ -1086,29 +1091,32 @@
         <table style="margin-top: 10px;">
             <tr>
                 <td>
+                    端 &emsp; &emsp; &emsp; 口:<input name="port" class="easyui-validatebox" required="true">
+                </td>
+                <td>
                     跳 纤 架 位 置:<input name="fiberFrameAddr" class="easyui-validatebox" required="true">
                 </td>
+            </tr>
+            <tr>
                 <td>
                     跳 纤 架 端 口:<input name="fiberFramePort" class="easyui-validatebox" required="true">&emsp;
                 </td>
-            </tr>
-            <tr>
                 <td>
                     对&nbsp;端&emsp;设&nbsp;备 :<input name="targetDevice" class="easyui-validatebox" required="true">
                 </td>
+            </tr>
+            <tr>
                 <td>
                     对端设备型号:<input name="targetDeviceModel" class="easyui-validatebox" required="true">&emsp;
                 </td>
-            </tr>
-            <tr>
                 <td>
                     对端设备架框:<input name="targetFiberFrame" class="easyui-validatebox" required="true">
                 </td>
+            </tr>
+            <tr>
                 <td>
                     对端设备端口:<input name="physicalPort" class="easyui-validatebox" required="true">&emsp;
                 </td>
-            </tr>
-            <tr>
                 <td>
                     业&nbsp;务&emsp;名&nbsp;称 :<input name="serviceName" class="easyui-validatebox" required="true">
                 </td>

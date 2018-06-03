@@ -47,7 +47,7 @@
         <!-- 设置true由servlet容器控制filter的生命周期 -->
         <init-param>
             <param-name>annoUrls</param-name>
-            <param-value>/css/**,/images/**,/js/**,/vircode.jpg,/login.jsp,/favicon.ico,/system/login</param-value>
+            <param-value>/favicon.ico,/system/login</param-value>
         </init-param>
     </filter>
     <filter-mapping>

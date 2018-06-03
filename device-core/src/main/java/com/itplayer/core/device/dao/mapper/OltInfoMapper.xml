@@ -91,6 +91,6 @@
     <select id="findByEntity" parameterType="com.itplayer.core.device.entity.OltInfo"
             resultType="com.itplayer.core.device.entity.OltInfo">
         SELECT * FROM dev_bbuDeviceInfo WHERE
-        port=#{port} AND device_id=#{device.id} AND fiberFramePort=#{getFiberFramePort} AND targetDevice=#{targetDevice} AND physicalPort=#{physicalPort}
+        port=#{port} AND device_id=#{device.id} AND fiberFramePort=#{fiberFramePort} AND targetDevice=#{targetDevice} AND physicalPort=#{physicalPort}
     </select>
 </mapper>

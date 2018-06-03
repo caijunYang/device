@@ -28,7 +28,8 @@ public class PortInfoController extends BaseController {
             portInfoService.reportPortInfo(portInfo);
             return success();
         } catch (Exception e) {
-            return success(e.getMessage());
+            e.printStackTrace();
+            return faild(e.getMessage());
         }
     }
 

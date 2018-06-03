@@ -146,4 +146,5 @@ public class OltInfo extends DeviceInfo {
         this.lable = portInfo.getLable();
         super.setId(portInfo.getId());
     }
+
 }

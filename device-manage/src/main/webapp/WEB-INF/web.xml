@@ -63,5 +63,8 @@
         <servlet-name>CAPTCHA</servlet-name>
         <url-pattern>/vircode.jpg</url-pattern>
     </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>/login.jsp</welcome-file>
+    </welcome-file-list>
 
 </web-app>
