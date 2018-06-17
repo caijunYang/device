@@ -232,9 +232,11 @@ public class AesUtil {
     }
 
     public static void main(String[] args) {
-        String str = aesEncrypt("成都卓影", "2222222222222222");
-        System.out.println(str);
-        String str2 = aesDecrypt(str, "2222222222222222");
-        System.out.println(str2);
+//        String str = aesEncrypt("成都卓影", "2222222222222222");
+//        System.out.println(str);
+//        String str2 = aesDecrypt(str, "2222222222222222");
+//        System.out.println(str2);
+        String md5String = getMD5String("836909" + 123);
+        System.out.println(md5String);
     }
 }

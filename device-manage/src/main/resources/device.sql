@@ -40,19 +40,7 @@ CREATE TABLE `dev_bbudeviceinfo` (
 -- ----------------------------
 -- Records of dev_bbudeviceinfo
 -- ----------------------------
-INSERT INTO `dev_bbudeviceinfo` VALUES ('2', null, null, '3', '1', '324234', null, null, null, null, null, null, null, null);
-INSERT INTO `dev_bbudeviceinfo` VALUES ('3', null, null, '3', '1', '324234', null, null, null, null, null, null, null, null);
-INSERT INTO `dev_bbudeviceinfo` VALUES ('4', null, null, '3', '1', '324234', null, null, null, null, null, null, null, null);
-INSERT INTO `dev_bbudeviceinfo` VALUES ('5', null, null, '3', '1', '324234', null, null, null, null, null, null, null, null);
-INSERT INTO `dev_bbudeviceinfo` VALUES ('6', null, '2018-06-02 19:10:49', '3', '13', '324234', 'rrrr', 'dddd', 'fff', null, 'ff', 'ddd', null, 'fff');
-INSERT INTO `dev_bbudeviceinfo` VALUES ('7', null, null, '3', '1', '324234', null, null, null, null, null, null, null, null);
-INSERT INTO `dev_bbudeviceinfo` VALUES ('10', null, null, '3', '1', '324234', null, null, null, null, null, null, null, null);
-INSERT INTO `dev_bbudeviceinfo` VALUES ('11', null, null, '3', '1', '324234', null, null, null, null, null, null, null, null);
-INSERT INTO `dev_bbudeviceinfo` VALUES ('12', null, null, '3', '1', '324234', null, null, null, null, null, null, null, null);
-INSERT INTO `dev_bbudeviceinfo` VALUES ('13', null, null, '3', '1', '324234', null, null, null, null, null, null, null, null);
-INSERT INTO `dev_bbudeviceinfo` VALUES ('14', null, null, '3', '1', '324234', null, null, null, null, null, null, null, null);
-INSERT INTO `dev_bbudeviceinfo` VALUES ('15', null, null, '3', '1', '324234', null, null, null, null, null, null, null, null);
-INSERT INTO `dev_bbudeviceinfo` VALUES ('16', null, null, '3', '1', '324234', null, null, null, null, null, null, null, null);
+
 
 -- ----------------------------
 -- Table structure for dev_device
@@ -76,16 +64,7 @@ CREATE TABLE `dev_device` (
 -- ----------------------------
 -- Records of dev_device
 -- ----------------------------
-INSERT INTO `dev_device` VALUES ('2', '2018-05-01 18:30:36', '2018-05-01 18:30:36', 'OLT1', null, '1', 'OLT1', '124213', '4213423', '42134132', 'OLT');
-INSERT INTO `dev_device` VALUES ('3', '2018-05-01 18:38:11', '2018-05-01 18:38:11', 'BBU1', '4', '3', 'BBU1', '234', '21341324', '23413', 'BBU');
-INSERT INTO `dev_device` VALUES ('4', '2018-05-01 18:47:05', '2018-05-01 18:47:05', 'ORDINARY1', '2', '1', 'ORDINARY1', '41234', '2341234', '312412', 'ORDINARY');
-INSERT INTO `dev_device` VALUES ('5', '2018-05-01 18:47:16', '2018-05-01 18:47:16', 'IPRAN1', '4', '3', 'IPRAN1', '124234', '1234', '2314123414', 'IPRAN');
-INSERT INTO `dev_device` VALUES ('6', '2018-05-06 14:26:57', '2018-05-06 14:26:57', '1', '1', null, '234234', '2342', '24234', '4234', 'OLT');
-INSERT INTO `dev_device` VALUES ('7', '2018-05-06 14:27:18', '2018-05-27 18:09:03', '1', '1', '8', '是不是这个', '234223', '24234999', '4234', 'OLT');
-INSERT INTO `dev_device` VALUES ('40', '2018-05-06 14:50:40', '2018-05-06 14:50:40', '2', '1', '8', '水电费', '2342', '24234', '4234', 'OLT');
-INSERT INTO `dev_device` VALUES ('41', '2018-05-06 14:50:40', '2018-05-27 18:06:37', '3', '1', '8', '水电费3', '2342', '24234678', '4234', 'OLT');
-INSERT INTO `dev_device` VALUES ('42', '2018-05-06 14:50:40', '2018-05-06 14:50:40', '4', '1', '8', '都是非法', '2342', '24234', '4234', 'OLT');
-INSERT INTO `dev_device` VALUES ('43', '2018-05-06 14:50:40', '2018-05-06 14:50:40', '5', '1', '8', '阿萨德发的撒 ', '2342', '24234', '4234', 'OLT');
+
 
 -- ----------------------------
 -- Table structure for dev_engineroom
@@ -105,9 +84,6 @@ CREATE TABLE `dev_engineroom` (
 -- ----------------------------
 -- Records of dev_engineroom
 -- ----------------------------
-INSERT INTO `dev_engineroom` VALUES ('1', '2018-05-01 14:45:42', '2018-05-01 14:45:42', '32432', '机房一 ', '234', '2');
-INSERT INTO `dev_engineroom` VALUES ('3', '2018-05-01 14:59:44', '2018-05-01 14:59:44', '9808', '机房二', '333', '4');
-INSERT INTO `dev_engineroom` VALUES ('8', '2018-05-06 14:26:56', '2018-05-06 14:26:56', '2342', '2342', null, '1');
 
 -- ----------------------------
 -- Table structure for dev_ipraninfo
@@ -157,12 +133,7 @@ CREATE TABLE `dev_oltinfo` (
 -- ----------------------------
 -- Records of dev_oltinfo
 -- ----------------------------
-INSERT INTO `dev_oltinfo` VALUES ('1', '2018-06-02 16:05:29', '2018-06-02 16:05:29', '7', '2', '3', '45', '5', '5', '4', '3', 'q', 'w');
-INSERT INTO `dev_oltinfo` VALUES ('2', '2018-06-02 16:30:20', '2018-06-02 18:11:29', '7', '3', '4', '5345', '6', '7567', '8', '8', '9', '0');
-INSERT INTO `dev_oltinfo` VALUES ('3', '2018-06-02 16:34:52', '2018-06-02 16:34:52', '7', '2', '3', '45', '5', '5', '4', '89', 'e', 'r');
-INSERT INTO `dev_oltinfo` VALUES ('4', '2018-06-02 17:52:28', '2018-06-02 17:52:28', '2', '3t', '4', '5', '6', '7', '8', '8', '9', '0');
-INSERT INTO `dev_oltinfo` VALUES ('5', '2018-06-02 18:03:04', '2018-06-02 18:03:04', '2', '3', '4www', '5', '6', '7', '8', '8', '9', '0');
-INSERT INTO `dev_oltinfo` VALUES ('6', '2018-06-02 18:05:52', '2018-06-02 18:05:52', '2', '3', '422', '5', '6', '7', '8', '8', '9', '0');
+
 
 -- ----------------------------
 -- Table structure for dev_ordinaryinfo
@@ -187,8 +158,6 @@ CREATE TABLE `dev_ordinaryinfo` (
 -- ----------------------------
 -- Records of dev_ordinaryinfo
 -- ----------------------------
-INSERT INTO `dev_ordinaryinfo` VALUES ('2', null, null, '4', '1', '1', '1', '1', '1', '1', '1', '1');
-INSERT INTO `dev_ordinaryinfo` VALUES ('3', null, null, '4', '2', '2', '2', '2', '2', '2', '2', '2');
 
 -- ----------------------------
 -- Table structure for persistent_logins
@@ -223,12 +192,7 @@ CREATE TABLE `sys_area` (
 -- ----------------------------
 -- Records of sys_area
 -- ----------------------------
-INSERT INTO `sys_area` VALUES ('1', '2018-04-18 16:52:29', '2018-04-20 16:52:29', '1', '泸州1', null);
-INSERT INTO `sys_area` VALUES ('2', '2018-04-20 16:53:07', '2018-04-20 16:53:07', '2', '泸州2', null);
-INSERT INTO `sys_area` VALUES ('3', '2018-04-20 16:53:19', '2018-04-20 16:53:19', '3', '泸州3', null);
-INSERT INTO `sys_area` VALUES ('4', '2018-04-20 16:53:44', '2018-04-20 16:53:44', '4', '泸州4', null);
-INSERT INTO `sys_area` VALUES ('5', '2018-04-25 16:54:34', '2018-04-20 16:54:34', '5', '泸州', null);
-INSERT INTO `sys_area` VALUES ('8', '2018-05-01 14:05:17', '2018-05-01 14:41:14', '324234', '21431234324', null);
+
 
 -- ----------------------------
 -- Table structure for sys_log
@@ -251,10 +215,7 @@ CREATE TABLE `sys_log` (
 -- ----------------------------
 -- Records of sys_log
 -- ----------------------------
-INSERT INTO `sys_log` VALUES ('1', '2018-05-19 11:51:41', '2018-05-19 11:51:41', 'admin', '0:0:0:0:0:0:0:1', 'MangeDelete', null, '/sys/manager/delete/24', '[24]', null);
-INSERT INTO `sys_log` VALUES ('2', '2018-05-19 12:27:46', '2018-05-19 12:27:46', 'admin', '0:0:0:0:0:0:0:1', 'Manager:del', '管理员删除', '/sys/manager/delete/23', '[23]', null);
-INSERT INTO `sys_log` VALUES ('3', '2018-06-02 11:59:42', '2018-06-02 11:59:42', 'admin', '0:0:0:0:0:0:0:1', 'Bbu:del', '无线设备删除', '/dev/bbuDeviceInfo/delete/8', '[8]', null);
-INSERT INTO `sys_log` VALUES ('4', '2018-06-02 12:19:12', '2018-06-02 12:19:12', 'admin', '0:0:0:0:0:0:0:1', 'Device:export', '设备导出', '/dev/device/downloadTemplate', '[]', null);
+
 
 -- ----------------------------
 -- Table structure for sys_manager
@@ -282,8 +243,7 @@ CREATE TABLE `sys_manager` (
 -- Records of sys_manager
 -- ----------------------------
 INSERT INTO `sys_manager` VALUES ('1', null, '2018-05-27 13:31:52', 'admin', 'D15F5A58B7998C491BC92789D2179214', '超级管理员', '123213213', null, null, '836909', 'WOMAN', null, null, '');
-INSERT INTO `sys_manager` VALUES ('2', null, null, '234324', '234', '234', '23432·', null, null, null, 'WOMAN', '2', null, null);
-INSERT INTO `sys_manager` VALUES ('3', null, null, '12312312', '234324', '3424', '234214', null, null, null, 'MAN', '3', null, null);
+
 
 -- ----------------------------
 -- Table structure for sys_manager_role

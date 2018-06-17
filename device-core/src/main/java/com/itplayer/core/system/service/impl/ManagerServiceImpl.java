@@ -90,7 +90,9 @@ public class ManagerServiceImpl extends BaseServiceImpl<Manager, Long> implement
                 throw new SystemException("账号不存在");
             }
             String salt = man.getSalt();
-            String md5String = AesUtil.getMD5String(salt + "123456");
+            String oldPwd = manager.getOldPwd();
+//            System.out.println(oldPwd);
+            String md5String = AesUtil.getMD5String(salt +oldPwd);
             if (!md5String.equals(man.getPassword())) {
                 throw new SystemException("原密码不正确");
             }
