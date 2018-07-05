@@ -95,7 +95,7 @@
         rRoom,en.deviceRoomName as rName
         FROM dev_device d
         LEFT JOIN sys_area a ON (d.area_id=a.id)
-        LEFT JOIN dev_engineroom en on (d.engineroom_id=en.id)
+        LEFT JOIN dev_engineRoom en on (d.engineroom_id=en.id)
         <where>
             <if test="deviceName !=null  and deviceName!=''">
                 AND d.deviceName LIKE concat('%',#{deviceName},'%')

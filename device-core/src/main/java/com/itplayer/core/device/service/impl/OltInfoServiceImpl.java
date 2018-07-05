@@ -80,7 +80,7 @@ public class OltInfoServiceImpl extends BaseServiceImpl<OltInfo, Long> implement
         HSSFCell cell = row.createCell(0);
         cell.setCellValue("本端设备名称");
         cell = row.createCell(1);
-        cell.setCellValue("本端设备端口");
+        cell.setCellValue("本端设备编号");
         cell = row.createCell(2);
         cell.setCellValue("本端设备型号");
         cell = row.createCell(3);

@@ -28,10 +28,10 @@
                     return "普通传输设备";
                     break;
                 case "OLT":
-                    return "上网传输设备";
+                    return "OLT传输设备";
                     break;
                 case "BBU":
-                    return "室内基带处理单元";
+                    return "无线传输设备";
                     break;
                 case "IPRAN":
                     return "4G传输设备";
@@ -314,7 +314,7 @@
             oltDlg.dialog({
                 width: 1000,
                 height: 600,
-                title: "上网传输设备",
+                title: "OLT传输设备",
                 modal: true,
                 closed: true,
                 onOpen: function () {
@@ -324,7 +324,7 @@
             bbuDlg.dialog({
                 width: 1000,
                 height: 600,
-                title: "室内基带处理单元",
+                title: "无线传输设备",
                 modal: true,
                 closed: true,
                 onOpen: function () {
@@ -374,7 +374,7 @@
                 }
             });
             oltGrid.datagrid({
-                title: "上网传输设备",
+                title: "OLT传输设备",
                 fit: true,
                 border: false,
                 url: "/dev/oltInfo/list",
@@ -408,7 +408,7 @@
                 }
             });
             bbuGrid.datagrid({
-                title: "室内基带处理单元",
+                title: "无线传输设备",
                 fit: true,
                 border: false,
                 url: "/dev/bbuDeviceInfo/list",
@@ -666,7 +666,7 @@
             ordinaryEditDlg.dialog({
                 width: 700,
                 height: 400,
-                title: "上网传输设备",
+                title: "OLT传输设备",
                 modal: true,
                 closed: true,
                 buttons: [
@@ -685,7 +685,7 @@
             oltEditDlg.dialog({
                 width: 700,
                 height: 400,
-                title: "上网传输设备",
+                title: "OLT传输设备",
                 modal: true,
                 closed: true,
                 buttons: [
@@ -704,7 +704,7 @@
             bbuEditDlg.dialog({
                 width: 700,
                 height: 400,
-                title: "上网传输设备",
+                title: "OLT传输设备",
                 modal: true,
                 closed: true,
                 buttons: [
@@ -723,7 +723,7 @@
             ipRanEditDlg.dialog({
                 width: 700,
                 height: 400,
-                title: "上网传输设备",
+                title: "OLT传输设备",
                 modal: true,
                 closed: true,
                 buttons: [
@@ -856,8 +856,8 @@
         名称: <input id="deviceName" name="deviceName" class="easyui-validatebox">
         设备类型:<select id="deviceType" class="easyui-combobox" name="deviceType" style="width:200px;">
         <option value="ORDINARY">普通传输设备</option>
-        <option value="OLT">上网传输设备</option>
-        <option value="BBU">室内基带处理单元</option>
+        <option value="OLT">OLT传输设备</option>
+        <option value="BBU">无线传输设备</option>
         <option value="IPRAN">4G传输设备</option>
     </select>
         区域:<input id="areaTree" class="easyui-combobox" name="area_id" method="GET" ,
@@ -902,8 +902,8 @@
                     设备类型:
                     <select class="easyui-combobox" name="deviceType" style="width:170px;">
                         <option value="ORDINARY">普通传输设备</option>
-                        <option value="OLT">上网传输设备</option>
-                        <option value="BBU">室内基带处理单元</option>
+                        <option value="OLT">OLT传输设备</option>
+                        <option value="BBU">无线传输设备</option>
                         <option value="IPRAN">4G传输设备</option>
                     </select>
                 </td>
@@ -929,13 +929,13 @@
         <table id="ordinaryGrid"></table>
     </div>
 </div>
-<!-- OLT("OLT 上网传输设备") -->
+<!-- OLT("OLT OLT传输设备") -->
 <div id="oltDlg">
     <div style="width: 100%;height: 100%">
         <table id="oltGrid"></table>
     </div>
 </div>
-<!--    BBU("BBU 室内基带处理单元") -->
+<!--    BBU("BBU无线传输设备") -->
 <div id="bbuDlg">
     <div style="width: 100%;height: 100%">
         <table id="bbuGrid" fit="true"></table>

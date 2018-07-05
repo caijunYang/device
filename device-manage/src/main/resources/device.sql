@@ -19,7 +19,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- Table structure for dev_bbudeviceinfo
 -- ----------------------------
 DROP TABLE IF EXISTS `dev_bbudeviceinfo`;
-CREATE TABLE `dev_bbudeviceinfo` (
+CREATE TABLE `dev_bbuDeviceInfo` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `createDate` datetime DEFAULT NULL,
   `updateDate` datetime DEFAULT NULL,
@@ -70,7 +70,7 @@ CREATE TABLE `dev_device` (
 -- Table structure for dev_engineroom
 -- ----------------------------
 DROP TABLE IF EXISTS `dev_engineroom`;
-CREATE TABLE `dev_engineroom` (
+CREATE TABLE `dev_engineRoom` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `createDate` datetime DEFAULT NULL,
   `updateDate` datetime DEFAULT NULL,
@@ -89,7 +89,7 @@ CREATE TABLE `dev_engineroom` (
 -- Table structure for dev_ipraninfo
 -- ----------------------------
 DROP TABLE IF EXISTS `dev_ipraninfo`;
-CREATE TABLE `dev_ipraninfo` (
+CREATE TABLE `dev_ipRanInfo` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `createDate` datetime DEFAULT NULL,
   `updateDate` datetime DEFAULT NULL,
@@ -113,7 +113,7 @@ CREATE TABLE `dev_ipraninfo` (
 -- Table structure for dev_oltinfo
 -- ----------------------------
 DROP TABLE IF EXISTS `dev_oltinfo`;
-CREATE TABLE `dev_oltinfo` (
+CREATE TABLE `dev_oltInfo` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `createDate` datetime DEFAULT NULL,
   `updateDate` datetime DEFAULT NULL,
@@ -139,7 +139,7 @@ CREATE TABLE `dev_oltinfo` (
 -- Table structure for dev_ordinaryinfo
 -- ----------------------------
 DROP TABLE IF EXISTS `dev_ordinaryinfo`;
-CREATE TABLE `dev_ordinaryinfo` (
+CREATE TABLE `dev_ordinaryInfo` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `createDate` datetime DEFAULT NULL,
   `updateDate` datetime DEFAULT NULL,
