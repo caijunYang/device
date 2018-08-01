@@ -63,7 +63,7 @@ public class BbuDeviceInfoServiceImpl extends BaseServiceImpl<BbuDeviceInfo, Lon
         cell = row.createCell(10);
         cell.setCellValue("对端设备架框");
         cell = row.createCell(11);
-        cell.setCellValue("对端设备物理端口");
+        cell.setCellValue("对端设备端口");
         cell = row.createCell(12);
         cell.setCellValue("业务名称");
         int index = 1;

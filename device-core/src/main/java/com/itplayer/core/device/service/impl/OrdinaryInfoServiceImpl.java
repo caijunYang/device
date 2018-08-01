@@ -32,7 +32,7 @@ public class OrdinaryInfoServiceImpl extends BaseServiceImpl<OrdinaryInfo, Long>
             throw new SystemException("请填写端口");
         }
         if (StrUtils.isNull(ordinaryInfo.getFiberFramePort())) {
-            throw new SystemException("请填写跳纤架位置");
+            throw new SystemException("请填写跳纤架端口");
         }
     }
 
