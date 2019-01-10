@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 @Component
 public class Constant implements ApplicationListener<ContextRefreshedEvent> {
+
     public static Map<String, String> PERMISSION_MAP = new HashMap<String, String>();
 
     @Override
